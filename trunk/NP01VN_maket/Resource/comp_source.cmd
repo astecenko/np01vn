@@ -1,0 +1,1 @@
+"c:\Program Files\Borland\Delphi7\Bin\brcc32.exe" "d:\ProjectsD\NP01VN_NEW\trunk\NP01VN_Maket\Resource\database.rc"
