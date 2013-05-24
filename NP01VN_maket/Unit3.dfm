@@ -1,17 +1,19 @@
 object Form3: TForm3
   Left = 212
   Top = 150
-  Width = 439
-  Height = 375
+  AutoScroll = False
   Caption = 'NP01VN Maket - '#1089#1086#1079#1076#1072#1085#1080#1077' '#1084#1072#1082#1077#1090#1085#1099#1093' '#1092#1072#1081#1083#1086#1074' 42, P1 '#1080' P0'
+  ClientHeight = 348
+  ClientWidth = 431
   Color = clBtnFace
-  Font.Charset = DEFAULT_CHARSET
+  Font.Charset = RUSSIAN_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
-  Font.Name = 'MS Sans Serif'
+  Font.Name = 'Microsoft Sans Serif'
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
+  Scaled = False
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
@@ -35,9 +37,9 @@ object Form3: TForm3
     ParentFont = False
   end
   object btn7: TSpeedButton
-    Left = 400
+    Left = 376
     Top = 0
-    Width = 23
+    Width = 47
     Height = 22
     Hint = #1059#1087#1088#1072#1074#1083#1077#1085#1080#1077' '#1085#1072#1089#1090#1088#1086#1081#1082#1072#1084#1080' '#1087#1086#1076#1088#1072#1079#1076#1077#1083#1077#1085#1080#1081
     AllowAllUp = True
@@ -63,9 +65,9 @@ object Form3: TForm3
     OnClick = btn7Click
   end
   object BitBtn1: TBitBtn
-    Left = 344
+    Left = 352
     Top = 208
-    Width = 81
+    Width = 73
     Height = 33
     Anchors = [akRight, akBottom]
     Caption = '&'#1042#1099#1093#1086#1076
@@ -90,7 +92,6 @@ object Form3: TForm3
     Sorted = True
     TabOrder = 1
     Visible = False
-    OnClick = ListBox1Click
     OnDblClick = ListBox1DblClick
   end
   object BitBtn2: TBitBtn
@@ -102,7 +103,6 @@ object Form3: TForm3
     Caption = #1059#1076#1072#1083#1080#1090#1100
     TabOrder = 2
     Visible = False
-    OnClick = BitBtn2Click
     Glyph.Data = {
       36030000424D3603000000000000360000002800000010000000100000000100
       18000000000000030000120B0000120B00000000000000000000C8D0D4C8D0D4
@@ -132,9 +132,9 @@ object Form3: TForm3
       D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4}
   end
   object btn1: TBitBtn
-    Left = 152
+    Left = 168
     Top = 208
-    Width = 185
+    Width = 177
     Height = 33
     Anchors = [akLeft, akRight, akBottom]
     Caption = #1046#1091#1088#1085#1072#1083
@@ -158,10 +158,11 @@ object Form3: TForm3
   object btn2: TBitBtn
     Left = 8
     Top = 208
-    Width = 33
+    Width = 73
     Height = 33
     Hint = #1053#1072#1089#1090#1088#1086#1081#1082#1080' '#1087#1088#1086#1075#1088#1072#1084#1084#1099
     Anchors = [akLeft, akBottom]
+    Caption = #1054#1087#1094#1080#1080
     ParentShowHint = False
     ShowHint = True
     TabOrder = 4
@@ -258,9 +259,9 @@ object Form3: TForm3
     OnClick = btn5Click
   end
   object btn6: TBitBtn
-    Left = 48
+    Left = 88
     Top = 208
-    Width = 97
+    Width = 73
     Height = 33
     Anchors = [akLeft, akBottom]
     Caption = #1040#1088#1093#1080#1074

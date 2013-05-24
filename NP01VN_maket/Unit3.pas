@@ -7,10 +7,6 @@ uses
   Dialogs, Grids, StdCtrls, Buttons, DBGrids, DB, FileCtrl,
   DBTables, dbgrideh;
 
-const
-  csArcDataDir = 'Data';
-  csArcJrnlDir = 'Jrnl';
-
 type
   TForm3 = class(TForm)
     BitBtn1: TBitBtn;
@@ -29,13 +25,7 @@ type
     chkArhiv: TCheckBox;
     mmo1: TMemo;
     procedure FormActivate(Sender: TObject);
-
-    // procedure StringGrid1SelectCell(Sender: TObject; ACol, ARow: Integer;
-     //  var CanSelect: Boolean);
-   //  procedure StringGrid1DblClick(Sender: TObject);
     procedure ListBox1DblClick(Sender: TObject);
-    procedure ListBox1Click(Sender: TObject);
-    procedure BitBtn2Click(Sender: TObject);
     procedure btn1Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -46,13 +36,14 @@ type
     procedure btn7Click(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure btn6Click(Sender: TObject);
-
   private
     { Private declarations }
   public
     function SelDirParam(s: string): string;
     procedure GetDeptName;
     procedure ShowJournal(arhiv: Boolean = False);
+    function Padl(expression: string; nLength: Integer; cFillChar: Char = ' '):
+      string;
   end;
 
 var
@@ -86,7 +77,6 @@ var
   SearchRec: TSearchRec;
   sFileName: string;
 begin
-  //  Result := False;
   sDir := sDir + '\*.*';
   iIndex := FindFirst(sDir, faAnyFile, SearchRec);
   while iIndex = 0 do
@@ -110,6 +100,25 @@ begin
   FindClose(SearchRec);
   RemoveDir(ExtractFileDir(sDir));
   Result := True;
+end;
+
+function TForm3.Padl(expression: string; nLength: Integer; cFillChar: Char =
+  ' '): string;
+var
+  n, i: Integer;
+  s: string;
+begin
+  s := Trim(expression);
+  n := Length(s);
+  if nLength > n then
+  begin
+    Result := '';
+    for i := 1 to nLength - n do
+      Result := Result + cFillChar;
+    Result := Result + s;
+  end
+  else
+    Result := Copy(s, 1, nLength);
 end;
 
 function TForm3.SelDirParam(s: string): string;
@@ -173,13 +182,13 @@ begin
   fp1 := ExtractFilePath(Application.ExeName);
   StartDir := Ini.ReadString('location', 'startdir', fp1);
   WorkName := Ini.ReadString('location', 'workname', '');
-  //    Quart := Ini.ReadInteger('service', 'quartal', CurrentQuarter + 1);
-  //  DebugMod := Ini.ReadBool('service', 'debug', False);
-  //    JournalClean(Quart);
   ArhivDir := Ini.ReadString('location', 'netdir', NetDir + csArhivPath);
-  BaseNetDir42 := Ini.ReadString('location', 'netdir42', 'K:\PDO\NP01VN\42\');
-  BaseNetDirP1 := Ini.ReadString('location', 'netdirp1', 'K:\PDO\NP01VN\P1\');
-  Basespdo := Ini.ReadString('location', 'basespdo', 'K:\SYSTEM\Bases.dbf');
+  BaseNetDir42 := Ini.ReadString('location', 'netdir42',
+    '\\nevz\nevz\ASUP_Data1\PDO\NP01VN\42\');
+  BaseNetDirP1 := Ini.ReadString('location', 'netdirp1',
+    '\\nevz\nevz\ASUP_Data1\PDO\NP01VN\P1\');
+  Basespdo := Ini.ReadString('location', 'basespdo',
+    '\\nevz\nevz\ASUP_Data1\SYSTEM\Bases.dbf');
   Width := Ini.ReadInteger('window', 'width', 440);
   Height := Ini.ReadInteger('window', 'height', 300);
   Left := Ini.ReadInteger('window', 'left', 100);
@@ -209,39 +218,14 @@ begin
   FreeAndNil(ini);
 end;
 
-{procedure TForm3.StringGrid1Click(Sender: TObject);
-begin
-pyt:='K:\PDO\NP01VN\'+Trim(StringGrid1.Rows[n_line].Text);
-form1.Table_NP01F0.DatabaseName:=pyt;
-Form1.Table_NP01F0.TableName:='NP01F0.db';
-Form1.Table_NP01F0.Active:=True;
-form2.Table_NP01FN.DatabaseName:=pyt;
-Form1.ShowModal;
-end;   }
-
-{procedure TForm3.StringGrid1SelectCell(Sender: TObject; ACol,
-  ARow: Integer; var CanSelect: Boolean);
-begin
- n_line:=ARow;
-
-end; }
-
-{procedure TForm3.StringGrid1DblClick(Sender: TObject);
-begin
-pyt:='K:\PDO\NP01VN\'+Trim(StringGrid1.Rows[n_line].Text);
-form1.Table_NP01F0.DatabaseName:=pyt;
-Form1.Table_NP01F0.TableName:='NP01F0.db';
-Form1.Table_NP01F0.Active:=rue;
-form2.Table_NP01FN.DatabaseName:=pyt;
-Form1.ShowModal;
-end;  }
-
 procedure TForm3.ListBox1DblClick(Sender: TObject);
 begin
   UseJournal := False;
   name_file := '';
-  pyt := 'K:\PDO\NP01VN\' + Trim(ListBox1.Items.Strings[ListBox1.itemindex]);
-  name_dir := 'K:\PDO\NP01VN\' + ListBox1.Items.Strings[ListBox1.itemindex] + '\'
+  pyt := '\\nevz\nevz\ASUP_Data1\PDO\NP01VN\' +
+    Trim(ListBox1.Items.Strings[ListBox1.itemindex]);
+  name_dir := '\\nevz\nevz\ASUP_Data1\PDO\NP01VN\' +
+    ListBox1.Items.Strings[ListBox1.itemindex] + '\'
     + ListBox1.Items.Strings[ListBox1.itemindex];
   if FindFirst(pyt + '\NP01F0.db', faAnyFile, f) = 0 then
     name_file := f.Name;
@@ -282,42 +266,6 @@ begin
     MessageDlg('Список корректировок отсутствует', mtCustom, [mbOK], 0);
 end;
 
-procedure TForm3.ListBox1Click(Sender: TObject);
-{var
-  f: textfile;
-  str: string;}
-begin
-  //ShowMessage('gfgdf');
-(*  AssignFile(f, 'K:\PDO\NP01VN\' +
-    Trim(ListBox1.Items.Strings[ListBox1.itemindex]) + '\NameDoc.txt');
-{$I-}
-  Reset(f); // открыть файл для чтения
-{$I-}
-  if IOResult = 0 then
-  begin
-    read(f, str);
-    Label2.Caption := str;
-    CloseFile(f);
-  end
-  else
-    Label2.Caption := '<Сл. записки нет>'
-    *)
-end;
-
-procedure TForm3.BitBtn2Click(Sender: TObject);
-begin
-  //ShowMessage('K:\PDO\NP01VN\'+Trim(ListBox1.Items.Strings[ListBox1.itemindex]));
- (* if Application.MessageBox('Вы дейстаительно хотите удалить папку?',
-    'Внимание',
-    MB_ICONQUESTION + MB_YESNO) = mryes then
-  begin
-    MyRemoveDir('K:\PDO\NP01VN\' +
-      Trim(ListBox1.Items.Strings[ListBox1.itemindex]));
-    ListBox1.DeleteSelected;
-  end;
-  *)
-end;
-
 procedure Start(const s: string);
 var
   si: TStartupInfo;
@@ -334,7 +282,6 @@ begin
     Create_default_error_mode, nil, nil, si, p) then
     Waitforsingleobject(p.hProcess, infinite)
   else
-    //    f1PR02vp_nc.jvlgfl1.Add(DateTimeToStr(Now), compusname + 'StrtErr', s);
     CloseHandle(p.hProcess);
 end;
 
@@ -419,27 +366,15 @@ begin
           end;
           z1.Next;
         end;
-      {  z.SQL.Text :=
-           'DELETE FROM "NP01VN.DB" WHERE (Wdate != "01.01.2000") AND (Wdate <= "' +
-           DateToStr(IncDay(Date, -180)) + '")';
-         try
-           z.Prepare;
-           z.ExecSQL;
-         except
-         end;}
       FreeAndNil(z1);
       FreeAndNil(z2);
       FreeAndNil(z3);
       FreeAndNil(z4);
       case quartal of
         1, 2, 3:
-          begin
-            Inc(quartal);
-          end;
+          Inc(quartal);
         4:
-          begin
-            quartal := 1;
-          end;
+          quartal := 1;
       end;
     end;
   end;
@@ -454,17 +389,13 @@ begin
     ShowMessage('Выберите подразделение!')
   else
   begin
-    //ButtonNet.Tag := 0;
-        //обслуживание базы, архивация, очистка и т.д.
-        // пока что закомент на отпуск
-    //JournalClean(quart);
     // /--- обслуживание базы
     UseJournal := True;
     IniDept := TMemIniFile.Create(LocalStorage + 'np01vn_dept.ini');
     JournalDir := IniDept.ReadString(lst1.Items[lst1.itemindex], 'journaldir',
       NetDir + 'Data\');
     NetDir := IniDept.ReadString(lst1.Items[lst1.itemindex], 'netdir',
-      'K:\PDO\NP01VN\');
+      '\\nevz\nevz\ASUP_Data1\PDO\NP01VN\');
     NetDirArc := IniDept.ReadString(lst1.Items[lst1.itemindex], 'netdir_arc',
       '');
     JournalDirArc := IniDept.ReadString(lst1.Items[lst1.itemindex],
@@ -486,17 +417,17 @@ begin
       if arhiv = True then
       begin
         Frm1 := TFormArcDir.Create(Self);
-        frm1.PodrazdDir:=NetDirArc;
-        if (Frm1.ShowModal = mrOk) and (Frm1.lst1.itemIndex>-1) then
+        frm1.PodrazdDir := NetDirArc;
+        if (Frm1.ShowModal = mrOk) and (Frm1.lst1.itemIndex > -1) then
         begin
           FmJournal.btnArc.Visible := False;
           FmJournal.btnState1.Visible := False;
           FmJournal.btnState2.Visible := False;
           FmJournal.btnState3.Visible := False;
           NetDir := NetDirArc + Frm1.lst1.Items[Frm1.lst1.itemIndex] + '\' +
-            csArcDataDir+'\';
+            csArcDataDir + '\';
           JournalDir := NetDirArc + Frm1.lst1.Items[Frm1.lst1.itemIndex] + '\' +
-            csArcJrnlDir+'\';
+            csArcJrnlDir + '\';
           FmJournal.Caption := 'АРХИВ ' + lst1.Items[lst1.itemindex] + ' за ' +
             Frm1.lst1.Items[Frm1.lst1.itemIndex];
           FmJournal.ShowModal();
@@ -516,36 +447,7 @@ begin
 end;
 
 procedure TForm3.btn1Click(Sender: TObject);
-{var
-  IniDept: TIniFile;}
 begin
-  {  if lst1.ItemIndex < 0 then
-      ShowMessage('Выберите подразделение!')
-    else
-    begin
-      //ButtonNet.Tag := 0;
-          //обслуживание базы, архивация, очистка и т.д.
-          // пока что закомент на отпуск
-      //JournalClean(quart);
-      // /--- обслуживание базы
-      UseJournal := True;
-      IniDept := TIniFile.Create(ExtractFilePath(Application.ExeName) +
-        'np01vn_dept.ini');
-      JournalDir := IniDept.ReadString(lst1.Items[lst1.itemindex], 'journaldir',
-        NetDir + 'Data\');
-      NetDir := IniDept.ReadString(lst1.Items[lst1.itemindex], 'netdir',
-        'K:\PDO\NP01VN\');
-      NetDirArc := IniDept.ReadString(lst1.Items[lst1.itemindex], 'netdir_arc',
-        'K:\PDO\NP01VN\');
-      JournalDirArc := IniDept.ReadString(lst1.Items[lst1.itemindex],
-        'journaldir_arc', NetDir + 'Data\');
-      FmJournal := TFmJournal.Create(Application);
-      FmJournal.dbgrdh1.RowLines := linecount;
-      FmJournal.Caption := 'Журнал NP01VN ' + lst1.Items[lst1.itemindex];
-      FmJournal.GetTableNames;
-      FmJournal.ShowModal();
-      FmJournal.Free;
-    end;}
   ShowJournal();
 end;
 
@@ -596,7 +498,7 @@ begin
     CopyConfigNew('np01vn_dept.ini');
     CopyConfigNew('NaznachList.txt');
   end;
-  //  ShowMessage(LocalStorage);
+  Self.AutoScroll := true;
 end;
 
 procedure TForm3.btn2Click(Sender: TObject);
@@ -630,12 +532,10 @@ begin
     IniDpt := TMemIniFile.Create(LocalStorage + 'np01vn_dept.ini');
     FmDept.edt1.Text := lst1.Items[lst1.ItemIndex];
     FmDept.edt2.Text := IniDpt.ReadString(FmDept.edt1.Text, 'netdir',
-      'K:\PDO\NP01VN\');
+      '\\nevz\nevz\ASUP_Data1\PDO\NP01VN\');
     FmDept.edt3.Text := IniDpt.ReadString(FmDept.edt1.Text, 'journaldir',
-      'K:\PDO\NP01VN\Journal\');
+      '\\nevz\nevz\ASUP_Data1\PDO\NP01VN\Journal\');
     FmDept.edt4.Text := IniDpt.ReadString(FmDept.edt1.Text, 'netdir_arc', '');
-    FmDept.edt5.Text := IniDpt.ReadString(FmDept.edt1.Text, 'journaldir_arc',
-      '');
     FmDept.edt6.Text := IniDpt.ReadString(FmDept.edt1.Text, 'backup_dir', '');
     FreeAndNil(IniDpt);
     FmDept.Caption := 'Редактирование подразделения...';

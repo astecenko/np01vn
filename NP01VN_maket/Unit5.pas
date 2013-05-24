@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DB, Grids, DBGrids, DBTables, StdCtrls, Mask, Buttons, ExtCtrls,
-  DBCtrls, shellApi, FileCtrl, IniFiles;
+  DBCtrls, shellApi, FileCtrl, IniFiles, ComCtrls;
 
 type
   TForm5 = class(TForm)
@@ -47,6 +47,8 @@ type
     chkMonth1: TCheckBox;
     chkMonth2: TCheckBox;
     chkMonth3: TCheckBox;
+    lblDoc: TLabel;
+    lblTable: TLabel;
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Table_DPLNPmakChange(Sender: TField);
@@ -66,6 +68,8 @@ type
     procedure ZapMak(par_po: string);
     procedure DataSource1DataChange(Sender: TObject; Field: TField);
     procedure FormShow(Sender: TObject);
+    procedure FormResize(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
 
   private
     { Private declarations }
@@ -127,6 +131,9 @@ var
   f: textfile;
   //rez_mass_file,
   i: integer;
+  dpl_db_name: string;
+  aNP01DPL: TTable;
+  ClearMarshrut: string;
   //  po: integer;
    { VolName: array[0..255] of char;
     FSName: array[0..100] of char;
@@ -143,8 +150,52 @@ var
   str01: TStringList;
   FilterOld: Boolean;
   RecNoOld: Cardinal;
+
+  function CreateDPL_4_NP01(aTable: TTable): boolean;
+  var
+    s1: string;
+  begin
+    aTable.DatabaseName := savedir;
+    if par_po = 'yes' then
+      dpl_db_name := dpl_db_name + form6.MaskEdit1.Text[1] +
+        form6.MaskEdit1.Text[2] + form6.MaskEdit1.Text[3];
+    aTable.TableName := dpl_db_name + '.DB';
+    s1 := IncludeTrailingPathDelimiter(savedir) + aTable.TableName;
+    aTable.TableType := ttParadox;
+    aTable.Exclusive := True;
+    Result := True;
+    try
+     { if FileExists(s1) then
+        DeleteFile(s1);}
+      if not (aTable.Exists) then
+      begin
+        with aTable.FieldDefs do
+        begin
+          Add('CHERT', ftString, 13);
+          Add('KI', ftString, 4);
+          Add('MDF', ftString, 1);
+          Add('KV', ftInteger);
+          Add('M1', ftInteger);
+          Add('M2', ftInteger);
+          Add('M3', ftInteger);
+          Add('TM', ftString, 26);
+          Add('SP', ftString, 1);
+        end;
+        aTable.CreateTable;
+      end
+      else if fl_disk = 2 then
+        aTable.EmptyTable;
+      aTable.Open;
+    except
+      Result := False;
+      ShowMessage('Ошибка доступа к файлу ' + s1);
+    end;
+  end;
+
 begin
   //  po := 0;
+  dpl_db_name := 'NP01';
+  fl_disk := 0;
   FmJournal.tbl1.DisableControls;
   RecNoOld := FmJournal.tbl1.RecNo;
   FilterOld := FmJournal.tbl1.Filtered;
@@ -177,7 +228,6 @@ begin
         + form6.Edit1.Text;
       FmJournal.tbl1.FieldByName('WDate').AsDateTime := Date;
       FmJournal.tbl1.Post;
-
     end;
     AssignFile(f, savedir + '\DPL.txt');
     //    AssignFile(f, 'a:\DPL.txt');
@@ -208,6 +258,7 @@ begin
     end
     else
       Rewrite(f);
+
     form5.Table_DPLN.First;
     Form7.Gauge1.MaxValue := Form5.Table_DPLN.RecordCount;
 
@@ -215,6 +266,8 @@ begin
     Form5.SendToBack;
     Form5.Visible := False;
     form7.Show;
+    aNP01DPL := TTable.Create(Self);
+    CreateDPL_4_NP01(aNP01DPL);
     for i := 1 to Form5.Table_DPLN.RecordCount do
     begin
       Form7.Gauge1.Progress := i;
@@ -247,45 +300,44 @@ begin
         s_field3 := '000000000';
       if Sum_Kvartal > 0 then
       begin
-        maket := Form5.Table_DPLN.FieldByName('NM').AsString +
-          Form5.Table_DPLN.FieldByName('PMak').AsString +
-          add_nol(Form5.Table_DPLN.FieldByName('KI').AsString, 4, 'left') +
-          del_prob(Form5.Table_DPLN.FieldByName('chert').AsString) +
-          Form5.Table_DPLN.FieldByName('PMod').AsString + '0' +
-          add_nol(inttostr(Sum_Kvartal), 9, 'left') +
-          s_field1 + s_field2 + s_field3;
-        if (Form5.Table_DPLN.FieldByName('PMak').AsInteger <> 1) and
-          (Form5.Table_DPLN.FieldByName('PMak').AsInteger <> 3) then
-          maket := maket +
-            add_nol(del_prob(Form5.Table_DPLN.FieldByName('Marshryt').AsString),
-            24,
-            'right')
+        aNP01DPL.Append;
+        ClearMarshrut :=
+          del_prob(Form5.Table_DPLN.FieldByName('Marshryt').AsString);
+        aNP01DPL.FieldByName('TM').AsString := ClearMarshrut + 'AA';
+        aNP01DPL.FieldByName('CHERT').AsString :=
+          Form5.Table_DPLN.FieldByName('chert').AsString;
+        aNP01DPL.FieldByName('SP').AsString := 'M';
+        aNP01DPL.FieldByName('MDF').AsString := '0';
+        aNP01DPL.FieldByName('KI').AsString :=
+          unit3.Form3.Padl(Table_DPLN.FieldByName('KI').AsString, 4, '0');
+        aNP01DPL.FieldByName('KV').AsInteger := Sum_Kvartal;
+        aNP01DPL.FieldByName('M1').AsInteger :=
+          Table_DPLN.FieldByName('Kol1').AsInteger;
+        aNP01DPL.FieldByName('M2').AsInteger :=
+          Table_DPLN.FieldByName('Kol2').AsInteger;
+        aNP01DPL.FieldByName('M3').AsInteger :=
+          Table_DPLN.FieldByName('Kol3').AsInteger;
+        maket := Table_DPLN.FieldByName('NM').AsString +
+          Table_DPLN.FieldByName('PMak').AsString +
+          aNP01DPL.FieldByName('KI').AsString +
+          del_prob(Table_DPLN.FieldByName('chert').AsString) +
+          Table_DPLN.FieldByName('PMod').AsString + '0' +
+          add_nol(inttostr(Sum_Kvartal), 9, 'left') + s_field1 + s_field2 +
+          s_field3;
+        if (Table_DPLN.FieldByName('PMak').AsInteger <> 1) and
+          (Table_DPLN.FieldByName('PMak').AsInteger <> 3) then
+          maket := maket + add_nol(ClearMarshrut, 24, 'right')
         else
         begin
-          if length(del_prob(Form5.Table_DPLN.FieldByName('Marshryt').AsString))
-            <= 4 then
-          begin
-            str_prom :=
-              add_nol(del_prob(Form5.Table_DPLN.FieldByName('Marshryt').AsString),
-              4,
-              'right');
-            str_prom := str_prom + copy('                        ', 1, 24 -
-              length(str_prom));
-            maket := maket + str_prom;
-          end;
-          if length(del_prob(Form5.Table_DPLN.FieldByName('Marshryt').AsString))
-            >
-            4 then
-          begin
-            str_prom :=
-              copy(del_prob(Form5.Table_DPLN.FieldByName('Marshryt').AsString),
-              length(del_prob(Form5.Table_DPLN.FieldByName('Marshryt').AsString))
-              - 3, 4);
-            str_prom := str_prom + copy('                        ', 1, 24 -
-              length(str_prom));
-            maket := maket + str_prom;
-          end;
+          if length(ClearMarshrut) <= 4 then
+            str_prom := add_nol(ClearMarshrut, 4, 'right')
+          else
+            str_prom := copy(ClearMarshrut, length(ClearMarshrut) - 3, 4);
+          str_prom := str_prom + copy('                        ', 1, 24 -
+            length(str_prom));
+          maket := maket + str_prom;
         end;
+        aNP01DPL.Post;
         Write(f, maket);
         str01.Text := str01.Text + maket;
       end;
@@ -400,6 +452,8 @@ begin
     Form5.Close;
     ShellExecute(Handle, nil, PChar(savedir + '\SPRAVKA.txt'), nil, nil,
       SW_RESTORE);
+    aNP01DPL.Close;
+    FreeAndNil(aNP01DPL);
   end;
   if savedir <> '' then
     try
@@ -447,6 +501,8 @@ var
   {sql_str,}cherteg: string;
   Tabl4: TTable;
 begin
+  lblDoc.Caption := FmJournal.tbl1.FieldByName('Fname2').AsString;
+  lblTable.Caption := FmJournal.tbl1.FieldByName('Tname').AsString;
   Table_DPLN.Active := true;
   if id_mess = 6 then
   begin //yes
@@ -822,9 +878,22 @@ end;
 
 procedure TForm5.FormShow(Sender: TObject);
 begin
-    chkMonth1.Checked := True;
-    chkMonth2.Checked := True;
-    chkMonth3.Checked := True;
+  chkMonth1.Checked := True;
+  chkMonth2.Checked := True;
+  chkMonth3.Checked := True;
+end;
+
+procedure TForm5.FormResize(Sender: TObject);
+begin
+  if Self.Width < 615 then
+    Self.Width := 615;
+  if Self.Height < 300 then
+    Self.Height := 300;
+end;
+
+procedure TForm5.FormCreate(Sender: TObject);
+begin
+  Self.AutoScroll := True;
 end;
 
 end.

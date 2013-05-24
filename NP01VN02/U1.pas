@@ -133,6 +133,55 @@ type
     pm2: TPopupMenu;
     N5: TMenuItem;
     N6: TMenuItem;
+    dsChanges: TDataSource;
+    tblChanges: TTable;
+    intgrfldqry1ItemID: TIntegerField;
+    strngfldqry1Changed: TStringField;
+    btnChange: TButton;
+    qryChangesUpd1: TQuery;
+    qryChangesUpd2: TQuery;
+    intgrfldChangesItemID: TIntegerField;
+    intgrfldChangesTableID: TIntegerField;
+    intgrfldChangesKod: TIntegerField;
+    strngfldChangesChert: TStringField;
+    intgrfldChangesKol_1: TIntegerField;
+    intgrfldChangesKol: TIntegerField;
+    intgrfldChangesKol1: TIntegerField;
+    intgrfldChangesKol2: TIntegerField;
+    intgrfldChangesKol3: TIntegerField;
+    strngfldChangesTM1: TStringField;
+    strngfldChangesTM2: TStringField;
+    strngfldChangesTM3: TStringField;
+    strngfldChangesTM4: TStringField;
+    strngfldChangesTM5: TStringField;
+    strngfldChangesTM6: TStringField;
+    strngfldChangesTM7: TStringField;
+    strngfldChangesTM8: TStringField;
+    strngfldChangesTM9: TStringField;
+    strngfldChangesTM10: TStringField;
+    strngfldChangesTM11: TStringField;
+    strngfldChangesTM12: TStringField;
+    strngfldChangesTM13: TStringField;
+    strngfldChangesTM14: TStringField;
+    strngfldChangesTM15: TStringField;
+    strngfldChangesTM16: TStringField;
+    strngfldChangesTM17: TStringField;
+    strngfldChangesTM18: TStringField;
+    strngfldChangesTM19: TStringField;
+    strngfldChangesTM20: TStringField;
+    strngfldChangesTM21: TStringField;
+    strngfldChangesTM22: TStringField;
+    strngfldChangesTM23: TStringField;
+    strngfldChangesTM24: TStringField;
+    strngfldChangesPrimech: TStringField;
+    dtfldChangesChangeDate: TDateField;
+    dbtxtChangeDate: TDBText;
+    txtChanged: TStaticText;
+    txtDeleted: TStaticText;
+    txtAdded: TStaticText;
+    qryChangesUpd3: TQuery;
+    strngfldChangesWinUser: TStringField;
+    dbtxtWinUser: TDBText;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure cbbYearChange(Sender: TObject);
@@ -174,6 +223,9 @@ type
     procedure NP01VN1Click(Sender: TObject);
     procedure qry1FilterRecord(DataSet: TDataSet; var Accept: Boolean);
     procedure medtTMClick(Sender: TObject);
+    procedure btnChangeClick(Sender: TObject);
+    procedure dbgrdh1GetCellParams(Sender: TObject; Column: TColumnEh;
+      AFont: TFont; var Background: TColor; State: TGridDrawState);
   private
     { Private declarations }
   public
@@ -182,7 +234,7 @@ type
     //    function GetShifrTitle(const number: string = ''): string;
     procedure SetRecCountInStatus(const DefaultValue: string = '');
     procedure ExportGrid(AllGrid: Boolean);
-    procedure FieldSelect;
+    procedure FieldSelect(aGrid: TDBGridEh);
     procedure SetFormCaption(const s: string);
     function GetMonthNameFromQuartMonth(const Quart, Month: integer): string;
     procedure SetMonthTableDef;
@@ -202,11 +254,11 @@ var
   //  CexNum: string;
     //параметры командной строки
   parExt, parTest: Boolean;
-  parDir, parKi, parChert, parTM: string;
+  parDir, parKi, parChert, parTM, parPodrazd: string;
 
 implementation
 uses ASU_DBF, KoaUtils, SAVLib, SAVLib_DBF, SAVLib_DB, IniFiles, VKDBFNTX,
-  DateUtils, U2, U3, ClipB, Constants, CommandLine;
+  DateUtils, U2, U3, U4, ClipB, Constants, CommandLine;
 {$R *.dfm}
 
 procedure ArhivNotFound;
@@ -272,12 +324,17 @@ var
         qry1.DatabaseName := TMSDir;
         try
           qry1.Open;
+          if tblChanges.Active then
+            tblChanges.Close;
+          tblChanges.DatabaseName := qry1.DatabaseName;
+          tblChanges.Open;
         except
           ShowMessage('Нет доступа к архиву за ' + cbbYear.Text +
             ' год, выберите другой!' + ShowDebug(#10#13'Запрос: ' + qry1.SQL.Text
             + #10#13'БД: ' + qry1.DatabaseName));
           Exit;
         end;
+
         NP01VN02Form1.Caption := csFormCaption;
         NP01VN02Form1.SetRecCountInStatus;
         if parExt and ((parKi <> '') or (parChert <> '') or (parTM <> '')) then
@@ -304,6 +361,8 @@ begin
   Cmd.AddStrKey('D', '', 'DIR');
   Cmd.AddStrKey('K', '', 'KI');
   Cmd.AddStrKey('C', '', 'CHERT');
+  Cmd.AddStrKey('P', '', 'PODRAZD');
+  Cmd.AddBoolKey('A', False, 'ALTER');
   Cmd.RequirePaths(0, 8);
   Cmd.Parse;
   PrivDir := '';
@@ -313,6 +372,7 @@ begin
   parKi := '';
   parChert := '';
   parTM := '';
+  parPodrazd := '';
   parExt := False;
   parTest := False;
   if Cmd.IsValid then
@@ -320,6 +380,8 @@ begin
     parExt := Cmd.BoolKey['E'];
     n3.Visible := parExt;
     NP01VN1.Visible := parExt;
+    btnChange.Visible := Cmd.BoolKey['A'];
+    dbtxtWinUser.Visible := btnChange.Visible;
     N4.Visible := parExt;
     parDir := Cmd.StrKey['D'];
     if parDir <> '' then
@@ -327,7 +389,7 @@ begin
     parKi := Cmd.StrKey['K'];
     parChert := Cmd.StrKey['C'];
     parTM := Cmd.StrKey['T'];
-
+    parPodrazd := Cmd.StrKey['P'];
   end;
   FreeAndNil(Cmd);
   if not (DirectoryExists(LocalStorage)) then
@@ -341,6 +403,7 @@ begin
   NetFileDir := Ini.ReadString('location', 'netfiledir',
     csNetPath_default);
   FreeAndNil(ini);
+  { TODO 5 -oСтеценко : Вернуть определение сессий назад при релизе!!! }
   SetBDEConfig(NetFileDir, PrivDir);
   // BasesPath := GetCurrentDir + '\cex.ini';
  {  if parCex = '' then
@@ -359,6 +422,10 @@ begin
   NS02NCHDir := '';
   BasesPath := GetCurrentDir + '\' + csBases;
   SetTMCaption(csTMCaption);
+  txtChanged.Color := RGB(127, 199, 255);
+  txtDeleted.Color := RGB(196, 30, 58);
+  txtDeleted.Font.Color := clWhite;
+  txtAdded.Color := RGB(150, 255, 150);
   if FileExists(BasesPath) then
     GetBases
   else
@@ -408,12 +475,17 @@ begin
   begin
     qry1.Close;
     qry1.DatabaseName := s;
+    if tblChanges.Active then
+      tblChanges.Close;
+    tblChanges.DatabaseName := qry1.DatabaseName;
     try
       qry1.Open;
+      tblChanges.Open;
     except
       ShowMessage('Нет доступа к архиву за ' + cbbYear.Text +
         ', выберите другой год!');
     end;
+
   end
   else
     ShowMessage('Нет доступа к архиву за ' + cbbYear.Text +
@@ -476,7 +548,7 @@ begin
   begin
     if Result <> '' then
       Result := Result + ' AND ';
-    s:=Trim(medtKI.Text);
+    s := Trim(medtKI.Text);
     Result := Result + '(KI=' + s + ')';
     FilterCaption('КИ=' + s);
   end;
@@ -591,7 +663,23 @@ begin
 end;
 
 procedure TNP01VN02Form1.ds1DataChange(Sender: TObject; Field: TField);
+var
+  i: integer;
+  s: string;
 begin
+  if btnChange.Visible then
+  begin
+    s := dbgrdh1.DataSource.DataSet.FieldByName('NameDoc').AsString;
+    if parPodrazd = '' then
+      btnChange.Enabled := False
+    else if parPodrazd = 'all' then
+      btnChange.Enabled := True
+    else if Length(s) > 4 then
+    begin
+      s := s[3] + s[4] + s[5];
+      btnChange.Enabled := parPodrazd = s;
+    end;
+  end;
   if NS02NCHDir <> '' then
     lbl1.Caption :=
       GetChertTitle(dbgrdh1.DataSource.DataSet.FieldByName('Chert').AsString);
@@ -604,6 +692,36 @@ begin
       GetMonthNameFromQuartMonth(dbgrdh1.DataSource.DataSet.FieldByName('Quart').AsInteger, 2);
     dbgrdh1.Columns[6].Title.Caption := '3 месяц ' +
       GetMonthNameFromQuartMonth(dbgrdh1.DataSource.DataSet.FieldByName('Quart').AsInteger, 3);
+  end;
+  if tblChanges.Active then
+  begin
+    if dbgrdh1.DataSource.DataSet.FieldByName('changed').AsString <> '' then
+    begin
+      dbgrdh1.Columns[0].Footer.Value :=
+        tblChanges.fieldbyname('kod').AsString;
+      dbgrdh1.Columns[1].Footer.Value :=
+        tblChanges.fieldbyname('chert').AsString;
+      dbgrdh1.Columns[2].Footer.Value :=
+        tblChanges.fieldbyname('kol_1').AsString;
+      dbgrdh1.Columns[3].Footer.Value :=
+        tblChanges.fieldbyname('kol').AsString;
+      dbgrdh1.Columns[4].Footer.Value :=
+        tblChanges.fieldbyname('kol1').AsString;
+      dbgrdh1.Columns[5].Footer.Value :=
+        tblChanges.fieldbyname('kol2').AsString;
+      dbgrdh1.Columns[6].Footer.Value :=
+        tblChanges.fieldbyname('kol3').AsString;
+      dbgrdh1.Columns[37].Footer.Value :=
+        tblChanges.fieldbyname('primech').AsString;
+      for i := 1 to 24 do
+        dbgrdh1.Columns[i + 12].Footer.Value :=
+          tblChanges.fieldbyname('tm' + inttostr(i)).AsString;
+    end
+    else
+    begin
+      for i := 0 to 37 do
+        dbgrdh1.Columns[i].Footer.Value := '';
+    end;
   end;
 end;
 
@@ -704,7 +822,7 @@ begin
     NewHeight := 65;
 end;
 
-procedure TNP01VN02Form1.FieldSelect;
+procedure TNP01VN02Form1.FieldSelect(aGrid: TDBGridEh);
 var
   frm1: TForm;
   chkb1: TCheckListbox;
@@ -741,15 +859,15 @@ begin
   btn02.Caption := 'Отмена';
   btn02.ModalResult := mrCancel;
   btn02.Cancel := True;
-  for i := 0 to dbgrdh1.Columns.Count - 1 do
+  for i := 0 to aGrid.Columns.Count - 1 do
   begin
-    chkb1.Items.Add(dbgrdh1.Columns[i].Title.Caption);
-    chkb1.Checked[i] := dbgrdh1.Columns[i].Visible;
+    chkb1.Items.Add(aGrid.Columns[i].Title.Caption);
+    chkb1.Checked[i] := aGrid.Columns[i].Visible;
   end;
   if frm1.ShowModal = mrok then
   begin
     for i := 0 to chkb1.Count - 1 do
-      dbgrdh1.Columns[i].Visible := chkb1.Checked[i];
+      aGrid.Columns[i].Visible := chkb1.Checked[i];
   end;
   FreeAndNil(frm1);
 end;
@@ -805,13 +923,15 @@ procedure TNP01VN02Form1.btnExportClick(Sender: TObject);
 begin
   SetMonthTableDef;
   SetTMCaption('TM');
+  dbgrdh1.FooterRowCount := 0;
   ExportGrid(True);
+  dbgrdh1.FooterRowCount := 1;
   SetTMCaption(csTMCaption);
 end;
 
 procedure TNP01VN02Form1.btn1Click(Sender: TObject);
 begin
-  FieldSelect
+  FieldSelect(dbgrdh1)
 end;
 
 procedure TNP01VN02Form1.N1Click(Sender: TObject);
@@ -1060,11 +1180,11 @@ begin
   end
   else
   begin
-    edtPrimech.Clear;
-    edtTable.Clear;
-    edtDoc.Clear;
-    medtDocNumb.Clear;
-    medtDocDate.Clear;
+    {  edtPrimech.Clear;
+      edtTable.Clear;
+      edtDoc.Clear;
+      medtDocNumb.Clear;
+      medtDocDate.Clear;}
     qry1.Close;
     qry1.SQL.Text := SQLDefault;
     qry1.Open;
@@ -1118,6 +1238,16 @@ begin
   FrmStruct.qry2.Close;
   FrmStruct.qry1.Close;
   FreeAndNil(FrmStruct);
+end;
+
+function GetCurrentUserName: string;
+var
+  Size: Cardinal;
+begin
+  Size := MAXCHAR;
+  SetLength(Result, Size);
+  GetUserName(PChar(Result), Size);
+  SetLength(Result, Size);
 end;
 
 procedure TNP01VN02Form1.SetTableFilter;
@@ -1212,7 +1342,6 @@ begin
     s2 := trim(medtTM.Text);
     if s2 <> '' then
     begin
-      //    txt1.Caption := txt1.Caption + 'TM*=' + s2 + '; ';
       for i := 7 to 30 do
         s := s + qry1.Fields[i].AsString + ' ';
       Accept := pos(s2, s) > 0;
@@ -1231,6 +1360,203 @@ end;
 procedure TNP01VN02Form1.medtTMClick(Sender: TObject);
 begin
   medtTM.SelStart := 0;
+end;
+
+procedure TNP01VN02Form1.btnChangeClick(Sender: TObject);
+var
+  FrmChange: TFrmChange;
+  aItemID, aTableID: integer;
+  aChert: string;
+
+  procedure FillChangeForm(aDataSet: TDataSet);
+  var
+    i: integer;
+  begin
+    FrmChange.medtChert.Text := aDataSet.fieldbyname('Chert').AsString;
+    FrmChange.edtPrimech.Text := aDataSet.fieldbyname('Primech').AsString;
+    FrmChange.seKol_1.Value := aDataSet.fieldbyname('Kol_1').AsInteger;
+    FrmChange.seKol1.Value := aDataSet.fieldbyname('Kol1').AsInteger;
+    FrmChange.seKol2.Value := aDataSet.fieldbyname('Kol2').AsInteger;
+    FrmChange.seKol3.Value := aDataSet.fieldbyname('Kol3').AsInteger;
+    for i := 1 to 24 do
+      (FrmChange.FindComponent('medtTM' + inttostr(i)) as TMaskEdit).Text :=
+        aDataSet.fieldbyname('TM' + inttostr(i)).AsString;
+  end;
+
+  procedure ChangeAction;
+  var
+    j: integer;
+
+    procedure SmartChangeUpdate(const ItemId_1: integer);
+    var
+      s: string;
+    begin
+      if tblChanges.fieldbyname('ItemID').AsInteger = 0 then
+      begin
+        tblChanges.Append;
+        tblChanges.fieldbyname('ItemID').AsInteger := ItemId_1;
+        tblChanges.fieldbyname('tableid').AsInteger := aTableID;
+      end
+      else
+        tblChanges.Edit;
+      s := dbgrdh1.DataSource.DataSet.FieldByName('NameDoc').AsString;
+      if Length(s) > 4 then
+        s := s[3] + s[4] + s[5];
+      tblChanges.fieldbyname('changedate').AsDateTime := Date;
+      tblChanges.fieldbyname('Primech').AsString := FrmChange.edtPrimech.Text;
+      tblChanges.fieldbyname('WinUser').AsString := s + '\' +
+        GetCurrentUserName;
+    end;
+
+  begin
+    if FrmChange.ShowModal = mrOk then
+    begin
+      case FrmChange.rg1.ItemIndex of
+        -1: // не выбрано
+          begin
+            ShowMessage('Не выбрано действие');
+            ChangeAction;
+          end;
+        0: // изменение
+          begin
+            SmartChangeUpdate(aItemID);
+            tblChanges.fieldbyname('chert').AsString :=
+              FrmChange.medtChert.Text;
+            tblChanges.fieldbyname('kod').AsInteger :=
+              FrmChange.seKod.Value;
+            tblChanges.fieldbyname('kol_1').AsInteger :=
+              FrmChange.seKol_1.Value;
+            tblChanges.fieldbyname('kol').AsString :=
+              FrmChange.edtItogo.Text;
+            tblChanges.fieldbyname('kol1').AsInteger :=
+              FrmChange.seKol1.Value;
+            tblChanges.fieldbyname('kol2').AsInteger :=
+              FrmChange.seKol2.Value;
+            tblChanges.fieldbyname('kol3').AsInteger :=
+              FrmChange.seKol3.Value;
+            for j := 1 to 24 do
+              tblChanges.fieldbyname('tm' + inttostr(j)).AsString :=
+                (FrmChange.FindComponent('medtTM' + inttostr(j)) as
+                TMaskEdit).Text;
+            tblChanges.Post;
+            qryChangesUpd1.ParamByName('changed').AsString := 'И';
+            qryChangesUpd1.ParamByName('itemid').AsInteger := aItemID;
+            qryChangesUpd1.ExecSQL;
+            dbgrdh1.DataSource.DataSet.Close;
+            dbgrdh1.DataSource.DataSet.Open;
+            dbgrdh1.DataSource.DataSet.Locate('ItemID', aItemID, [])
+          end;
+        1: // удаление
+          begin
+            SmartChangeUpdate(aItemID);
+            tblChanges.Post;
+            qryChangesUpd1.ParamByName('changed').AsString := 'У';
+            qryChangesUpd1.ParamByName('itemid').AsInteger := aItemID;
+            qryChangesUpd1.ExecSQL;
+            dbgrdh1.DataSource.DataSet.Close;
+            dbgrdh1.DataSource.DataSet.Open;
+            dbgrdh1.DataSource.DataSet.Locate('ItemID', aItemID, [])
+          end;
+        2: // добавление
+          begin
+            qryChangesUpd2.ParamByName('changed').AsString := 'Д';
+            qryChangesUpd2.ParamByName('kod').AsInteger :=
+              FrmChange.seKod.Value;
+            qryChangesUpd2.ParamByName('kol_1').AsInteger :=
+              FrmChange.seKol_1.Value;
+            qryChangesUpd2.ParamByName('kol').AsInteger :=
+              StrToint(FrmChange.edtItogo.Text);
+            qryChangesUpd2.ParamByName('kol1').AsInteger :=
+              FrmChange.seKol1.Value;
+            qryChangesUpd2.ParamByName('kol2').AsInteger :=
+              FrmChange.seKol2.Value;
+            qryChangesUpd2.ParamByName('kol3').AsInteger :=
+              FrmChange.seKol3.Value;
+            qryChangesUpd2.ParamByName('tableid').AsInteger := aTableID;
+            for j := 1 to 24 do
+              qryChangesUpd2.ParamByName('tm' + inttostr(j)).AsString :=
+                (FrmChange.FindComponent('medtTM' + inttostr(j)) as
+                TMaskEdit).Text;
+            qryChangesUpd2.ParamByName('Primech').AsString :=
+              FrmChange.edtPrimech.Text;
+            qryChangesUpd2.ParamByName('chert').AsString :=
+              FrmChange.medtChert.Text;
+            qryChangesUpd2.Prepare;
+            showmessage(qryChangesUpd2.Params.ParseSQL(qryChangesUpd2.Text,
+              False));
+            qryChangesUpd2.ExecSQL;
+            dbgrdh1.DataSource.DataSet.Close;
+            dbgrdh1.DataSource.DataSet.Open;
+            if dbgrdh1.DataSource.DataSet.Locate('tableid;chert;ki;changed',
+              VarArrayOf([aTableID, FrmChange.medtChert.Text,
+              FrmChange.seKod.Text, 'Д']), []) then
+            begin
+              SmartChangeUpdate(dbgrdh1.DataSource.DataSet.FieldByName('ItemID').AsInteger);
+              tblChanges.Post;
+            end;
+          end;
+        {3:  // удаление инфы о корректировках
+          begin
+            if (dbgrdh1.DataSource.DataSet.fieldbyname('Changed').AsString = 'И')
+              or (dbgrdh1.DataSource.DataSet.fieldbyname('Changed').AsString =
+              'У') then
+            begin
+              qryChangesUpd1.ParamByName('changed').AsString := '';
+              qryChangesUpd1.ParamByName('itemid').AsInteger := aItemID;
+              qryChangesUpd1.ExecSQL;
+              qryChangesUpd3.ParamByName('itemid').AsInteger := aItemID;
+              qryChangesUpd3.ExecSQL;
+              dbgrdh1.DataSource.DataSet.Close;
+              dbgrdh1.DataSource.DataSet.Open;
+              dbgrdh1.DataSource.DataSet.Locate('ItemID', aItemID, [])
+            end
+            else
+              Showmessage('Удалить корректировку для текущей записи нельзя');
+          end;}
+      end;
+    end;
+  end;
+
+begin
+  FrmChange := TFrmChange.Create(Self);
+  qryChangesUpd1.DatabaseName := qry1.DatabaseName;
+  qryChangesUpd2.DatabaseName := qry1.DatabaseName;
+  qryChangesUpd3.DatabaseName := qry1.DatabaseName;
+  aItemID := dbgrdh1.DataSource.DataSet.FieldByName('ItemID').AsInteger;
+  aTableID := dbgrdh1.DataSource.DataSet.FieldByName('TableID').AsInteger;
+  aChert := dbgrdh1.DataSource.DataSet.FieldByName('Chert').AsString;
+  if dbgrdh1.DataSource.DataSet.fieldbyname('Changed').AsString = 'И' then
+  begin
+    FillChangeForm(tblChanges);
+    FrmChange.seKod.Value := tblChanges.fieldbyname('Kod').AsInteger;
+  end
+  else
+  begin
+    FillChangeForm(dbgrdh1.DataSource.DataSet);
+    FrmChange.seKod.Value :=
+      dbgrdh1.DataSource.DataSet.fieldbyname('KI').AsInteger;
+  end;
+  ChangeAction;
+  FreeAndNil(FrmChange);
+end;
+
+procedure TNP01VN02Form1.dbgrdh1GetCellParams(Sender: TObject;
+  Column: TColumnEh; AFont: TFont; var Background: TColor;
+  State: TGridDrawState);
+begin
+  if (dbgrdh1.DataSource.DataSet.Active) and
+    (dbgrdh1.DataSource.DataSet.FieldByName('changed').AsString <> '') then
+    case dbgrdh1.DataSource.DataSet.FieldByName('changed').AsString[1] of
+      'И': //изменено
+        Background := txtChanged.Color;
+      'У':
+        begin //удалено
+          Background := txtDeleted.Color;
+          AFont.Color := clWhite;
+        end;
+      'Д': //добавлено
+        Background := txtAdded.Color;
+    end;
 end;
 
 end.

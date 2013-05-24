@@ -1,8 +1,9 @@
 object NP01VN02Form1: TNP01VN02Form1
-  Left = -3
-  Top = 131
-  Width = 790
-  Height = 400
+  Left = 13
+  Top = 89
+  AutoScroll = False
+  ClientHeight = 473
+  ClientWidth = 782
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,7 +19,7 @@ object NP01VN02Form1: TNP01VN02Form1
   TextHeight = 13
   object spl1: TSplitter
     Left = 0
-    Top = 343
+    Top = 443
     Width = 782
     Height = 5
     Cursor = crVSplit
@@ -34,7 +35,7 @@ object NP01VN02Form1: TNP01VN02Form1
   end
   object pnl1: TPanel
     Left = 0
-    Top = 348
+    Top = 448
     Width = 782
     Height = 25
     Align = alBottom
@@ -70,16 +71,16 @@ object NP01VN02Form1: TNP01VN02Form1
       Caption = #1044#1086#1082#1091#1084#1077#1085#1090':'
     end
     object lbl5: TLabel
-      Left = 549
-      Top = 112
+      Left = 501
+      Top = 80
       Width = 111
       Height = 13
       Anchors = [akTop, akRight]
       Caption = #1054#1090#1087#1088#1072#1074#1083#1077#1085#1086' '#1074' '#1054#1040#1057#1059#1055
     end
     object dbtxtSendDate: TDBText
-      Left = 669
-      Top = 112
+      Left = 621
+      Top = 80
       Width = 81
       Height = 17
       Anchors = [akTop, akRight]
@@ -93,7 +94,7 @@ object NP01VN02Form1: TNP01VN02Form1
       ParentFont = False
     end
     object dbtxtQuart: TDBText
-      Left = 645
+      Left = 597
       Top = 48
       Width = 20
       Height = 17
@@ -108,7 +109,7 @@ object NP01VN02Form1: TNP01VN02Form1
       ParentFont = False
     end
     object lbl6: TLabel
-      Left = 549
+      Left = 501
       Top = 48
       Width = 88
       Height = 13
@@ -116,8 +117,8 @@ object NP01VN02Form1: TNP01VN02Form1
       Caption = #1062#1077#1083#1077#1074#1086#1081' '#1082#1074#1072#1088#1090#1072#1083
     end
     object DBText1: TDBText
-      Left = 618
-      Top = 7
+      Left = 626
+      Top = 3
       Width = 129
       Height = 14
       Hint = #1056#1077#1082#1074#1080#1079#1080#1090#1099' '#1076#1086#1082#1091#1084#1077#1085#1090#1072' '#1082#1086#1088#1088#1077#1082#1090#1080#1088#1086#1074#1082#1080
@@ -125,10 +126,43 @@ object NP01VN02Form1: TNP01VN02Form1
       DataField = 'NameDoc'
       DataSource = ds1
     end
+    object dbtxtChangeDate: TDBText
+      Left = 512
+      Top = 3
+      Width = 105
+      Height = 17
+      Hint = #1044#1072#1090#1072' '#1088#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1085#1080#1103' '#1079#1072#1087#1080#1089#1080
+      Anchors = [akTop, akRight]
+      DataField = 'ChangeDate'
+      DataSource = dsChanges
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object dbtxtWinUser: TDBText
+      Left = 504
+      Top = 104
+      Width = 137
+      Height = 17
+      Hint = #1055#1086#1089#1083#1077#1076#1085#1080#1081' '#1088#1077#1076#1072#1082#1090#1086#1088' '#1079#1072#1087#1080#1089#1080
+      Anchors = [akTop, akRight]
+      DataField = 'WinUser'
+      DataSource = dsChanges
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Visible = False
+    end
     object dbmmoDocTitle: TDBMemo
       Left = 64
       Top = 88
-      Width = 478
+      Width = 425
       Height = 41
       Anchors = [akLeft, akTop, akRight]
       DataField = 'DocTitle'
@@ -146,7 +180,7 @@ object NP01VN02Form1: TNP01VN02Form1
     object dbmmoTable: TDBMemo
       Left = 64
       Top = 40
-      Width = 478
+      Width = 425
       Height = 41
       Anchors = [akLeft, akTop, akRight]
       DataField = 'TableTitle'
@@ -166,17 +200,65 @@ object NP01VN02Form1: TNP01VN02Form1
       Top = 6
       Width = 17
       Height = 17
+      Hint = #1055#1086#1082#1072#1079#1072#1090#1100'/'#1089#1082#1088#1099#1090#1100' '#1085#1080#1078#1085#1102#1102' '#1087#1072#1085#1077#1083#1100
       Anchors = [akTop, akRight]
       Caption = '_'
       TabOrder = 2
       OnClick = btn3Click
+    end
+    object btnChange: TButton
+      Left = 280
+      Top = 3
+      Width = 50
+      Height = 20
+      Hint = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1090#1100' '#1079#1072#1087#1080#1089#1100
+      Anchors = [akTop, akRight]
+      Caption = #1056#1077#1076#1072#1082#1090
+      TabOrder = 3
+      Visible = False
+      OnClick = btnChangeClick
+    end
+    object txtChanged: TStaticText
+      Left = 330
+      Top = 3
+      Width = 61
+      Height = 17
+      Alignment = taCenter
+      Anchors = [akTop, akRight]
+      AutoSize = False
+      Caption = #1048#1079#1084#1077#1085#1077#1085#1072
+      Color = clBtnFace
+      ParentColor = False
+      TabOrder = 4
+    end
+    object txtDeleted: TStaticText
+      Left = 392
+      Top = 3
+      Width = 61
+      Height = 17
+      Alignment = taCenter
+      Anchors = [akTop, akRight]
+      AutoSize = False
+      Caption = #1059#1076#1072#1083#1077#1085#1072
+      TabOrder = 5
+    end
+    object txtAdded: TStaticText
+      Left = 450
+      Top = 3
+      Width = 61
+      Height = 17
+      Alignment = taCenter
+      Anchors = [akTop, akRight]
+      AutoSize = False
+      Caption = #1044#1086#1073#1072#1074#1083#1077#1085#1072
+      TabOrder = 6
     end
   end
   object pnl2: TPanel
     Left = 0
     Top = 68
     Width = 782
-    Height = 275
+    Height = 375
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
@@ -184,7 +266,7 @@ object NP01VN02Form1: TNP01VN02Form1
       Left = 0
       Top = 0
       Width = 782
-      Height = 275
+      Height = 375
       Align = alClient
       AutoFitColWidths = True
       DataGrouping.GroupLevels = <>
@@ -201,14 +283,17 @@ object NP01VN02Form1: TNP01VN02Form1
       FooterFont.Height = -11
       FooterFont.Name = 'MS Sans Serif'
       FooterFont.Style = []
+      FooterRowCount = 1
       Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgMultiSelect]
       OptionsEh = [dghFixed3D, dghHighlightFocus, dghClearSelection, dghAutoSortMarking, dghMultiSortMarking, dghDialogFind, dghColumnResize, dghColumnMove, dghExtendVertLines]
       ParentFont = False
+      ParentShowHint = False
       PopupMenu = pm1
       ReadOnly = True
       RowDetailPanel.Color = clBtnFace
       RowHeight = 2
       RowLines = 1
+      ShowHint = True
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
@@ -218,10 +303,12 @@ object NP01VN02Form1: TNP01VN02Form1
       TitleLines = 1
       UseMultiTitle = True
       OnDblClick = lbl1DblClick
+      OnGetCellParams = dbgrdh1GetCellParams
       Columns = <
         item
           EditButtons = <>
           FieldName = 'KI'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1050#1086#1076' '#1080#1079#1076#1077#1083
           Title.TitleButton = True
@@ -230,6 +317,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'Chert'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1063#1077#1088#1090#1077#1078
           Title.TitleButton = True
@@ -238,6 +326,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'Kol_1'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1050#1086#1083'-'#1074#1086' '#1085#1072' '#1080#1079#1076#1077#1083#1080#1077
           Visible = False
@@ -245,38 +334,45 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'Kol'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1048#1090#1086#1075#1086
         end
         item
           EditButtons = <>
           FieldName = 'Kol1'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = '1 '#1084#1077#1089#1103#1094
         end
         item
           EditButtons = <>
           FieldName = 'Kol2'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = '2 '#1084#1077#1089#1103#1094
         end
         item
           EditButtons = <>
           FieldName = 'Kol3'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = '3 '#1084#1077#1089#1103#1094
         end
         item
           EditButtons = <>
           FieldName = 'Quart'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1050#1074#1072#1088#1090'.'
+          Title.Hint = #1050#1074#1072#1088#1090#1072#1083' '#1085#1072' '#1082#1086#1090#1086#1088#1099#1081' '#1082#1086#1088#1088#1077#1082#1090#1080#1088#1086#1074#1082#1072
           Title.TitleButton = True
           Width = 46
         end
         item
           EditButtons = <>
           FieldName = 'NameDoc'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1056#1077#1082#1074#1080#1079#1080#1090#1099
           Title.TitleButton = True
@@ -285,6 +381,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'DocDate'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1044#1072#1090#1072' '#1076#1086#1082#1091#1084#1077#1085#1090#1072
           Title.TitleButton = True
@@ -293,6 +390,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'SendDate'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1054#1090#1087#1088#1072#1074'. '#1074' '#1054#1040#1057#1059#1055
           Title.TitleButton = True
@@ -301,6 +399,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'TableTitle'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1058#1072#1073#1083#1080#1094#1072
           Visible = False
@@ -308,6 +407,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'DocTitle'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1044#1086#1082#1091#1084#1077#1085#1090
           Visible = False
@@ -315,6 +415,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'TM1'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1058#1077#1093'.'#1084#1072#1088#1096#1088#1091#1090'|1'
           Title.TitleButton = True
@@ -322,6 +423,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'TM2'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1058#1077#1093'.'#1084#1072#1088#1096#1088#1091#1090'|2'
           Title.TitleButton = True
@@ -329,6 +431,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'TM3'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1058#1077#1093'.'#1084#1072#1088#1096#1088#1091#1090'|3'
           Title.TitleButton = True
@@ -336,6 +439,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'TM4'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1058#1077#1093'.'#1084#1072#1088#1096#1088#1091#1090'|4'
           Title.TitleButton = True
@@ -343,6 +447,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'TM5'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1058#1077#1093'.'#1084#1072#1088#1096#1088#1091#1090'|5'
           Title.TitleButton = True
@@ -350,6 +455,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'TM6'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1058#1077#1093'.'#1084#1072#1088#1096#1088#1091#1090'|6'
           Title.TitleButton = True
@@ -357,6 +463,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'TM7'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1058#1077#1093'.'#1084#1072#1088#1096#1088#1091#1090'|7'
           Title.TitleButton = True
@@ -364,6 +471,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'TM8'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1058#1077#1093'.'#1084#1072#1088#1096#1088#1091#1090'|8'
           Title.TitleButton = True
@@ -371,6 +479,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'TM9'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1058#1077#1093'.'#1084#1072#1088#1096#1088#1091#1090'|9'
           Title.TitleButton = True
@@ -378,6 +487,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'TM10'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1058#1077#1093'.'#1084#1072#1088#1096#1088#1091#1090'|10'
           Title.TitleButton = True
@@ -386,6 +496,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'TM11'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1058#1077#1093'.'#1084#1072#1088#1096#1088#1091#1090'|11'
           Title.TitleButton = True
@@ -394,6 +505,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'TM12'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1058#1077#1093'.'#1084#1072#1088#1096#1088#1091#1090'|12'
           Title.TitleButton = True
@@ -402,6 +514,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'TM13'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1058#1077#1093'.'#1084#1072#1088#1096#1088#1091#1090'|13'
           Title.TitleButton = True
@@ -410,6 +523,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'TM14'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1058#1077#1093'.'#1084#1072#1088#1096#1088#1091#1090'|14'
           Title.TitleButton = True
@@ -418,6 +532,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'TM15'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1058#1077#1093'.'#1084#1072#1088#1096#1088#1091#1090'|15'
           Title.TitleButton = True
@@ -426,6 +541,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'TM16'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1058#1077#1093'.'#1084#1072#1088#1096#1088#1091#1090'|16'
           Title.TitleButton = True
@@ -434,6 +550,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'TM17'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1058#1077#1093'.'#1084#1072#1088#1096#1088#1091#1090'|17'
           Title.TitleButton = True
@@ -442,6 +559,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'TM18'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1058#1077#1093'.'#1084#1072#1088#1096#1088#1091#1090'|18'
           Title.TitleButton = True
@@ -450,6 +568,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'TM19'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1058#1077#1093'.'#1084#1072#1088#1096#1088#1091#1090'|19'
           Title.TitleButton = True
@@ -458,6 +577,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'TM20'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1058#1077#1093'.'#1084#1072#1088#1096#1088#1091#1090'|20'
           Title.TitleButton = True
@@ -466,6 +586,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'TM21'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1058#1077#1093'.'#1084#1072#1088#1096#1088#1091#1090'|21'
           Title.TitleButton = True
@@ -474,6 +595,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'TM22'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1058#1077#1093'.'#1084#1072#1088#1096#1088#1091#1090'|22'
           Title.TitleButton = True
@@ -482,6 +604,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'TM23'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1058#1077#1093'.'#1084#1072#1088#1096#1088#1091#1090'|23'
           Title.TitleButton = True
@@ -490,6 +613,7 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'TM24'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1058#1077#1093'.'#1084#1072#1088#1096#1088#1091#1090'|24'
           Title.TitleButton = True
@@ -498,10 +622,22 @@ object NP01VN02Form1: TNP01VN02Form1
         item
           EditButtons = <>
           FieldName = 'Primech'
+          Footer.ValueType = fvtStaticText
           Footers = <>
           Title.Caption = #1055#1088#1080#1084#1077#1095#1072#1085#1080#1077
           Title.TitleButton = True
+          ToolTips = True
           Width = 125
+        end
+        item
+          EditButtons = <>
+          FieldName = 'Changed'
+          Footers = <>
+          Title.Caption = '*'
+          Title.Hint = #1048#1079#1084#1077#1085#1077#1085#1080#1103
+          Title.TitleButton = True
+          ToolTips = True
+          Visible = False
         end>
       object RowDetailData: TRowDetailPanelControlEh
       end
@@ -1062,12 +1198,12 @@ object NP01VN02Form1: TNP01VN02Form1
     Top = 164
   end
   object qry1: TQuery
-    DatabaseName = 'd:\Temp\000\ArhivChert\'
+    DatabaseName = 'd:\ProjectsD\NP01VN\NP01VN02\Base_07_05_2013\'
     OnFilterRecord = qry1FilterRecord
     SQL.Strings = (
       
-        'SELECT t2.Chert as Chert, t2.Kod as KI, t2.kol as Kol, t2.kol_1 ' +
-        'as Kol_1, '
+        'SELECT t2.ItemID as ItemID, t2.Chert as Chert, t2.Kod as KI, t2.' +
+        'kol as Kol, t2.kol_1 as Kol_1, '
       
         't2.kol1 as Kol1, t2.kol2 as Kol2, t2.kol3 as Kol3, t2.TM1 as TM1' +
         ', t2.TM2 as TM2, t2.TM3 as TM3,'
@@ -1089,7 +1225,7 @@ object NP01VN02Form1: TNP01VN02Form1
       't0.Title as DocTitle, t0.DDate as DocDate, t0.SDate as SendDate,'
       
         't1.Kod as Kod, t0.NameDoc as NameDoc,  t2.TableID as TableID, t1' +
-        '.DocID as DocID'
+        '.DocID as DocID, t2.Changed as Changed'
       'FROM "NP01VN02_0.DB" t0, "NP01VN02_1.DB" t1, "NP01VN02_2.DB" t2 '
       'WHERE (t0.DocID = t1.DocID) and (t1.TableID=t2.TableID)')
     Left = 168
@@ -1246,6 +1382,13 @@ object NP01VN02Form1: TNP01VN02Form1
     object intgrfldqry1DocID: TIntegerField
       FieldName = 'DocID'
     end
+    object intgrfldqry1ItemID: TIntegerField
+      FieldName = 'ItemID'
+    end
+    object strngfldqry1Changed: TStringField
+      FieldName = 'Changed'
+      Size = 1
+    end
   end
   object dlgSave1: TSaveDialog
     DefaultExt = '.xls'
@@ -1312,12 +1455,12 @@ object NP01VN02Form1: TNP01VN02Form1
     FoxTableFlag.HasGotIndex = False
     FoxTableFlag.HasGotMemo = False
     FoxTableFlag.ItIsDatabase = False
-    Left = 48
+    Left = 104
     Top = 168
   end
   object pm2: TPopupMenu
-    Left = 344
-    Top = 108
+    Left = 288
+    Top = 180
     object N5: TMenuItem
       AutoCheck = True
       Caption = #1058#1086#1095#1085#1099#1077' '#1084#1077#1089#1090#1072
@@ -1331,5 +1474,437 @@ object NP01VN02Form1: TNP01VN02Form1
       GroupIndex = 1
       RadioItem = True
     end
+  end
+  object dsChanges: TDataSource
+    DataSet = tblChanges
+    Left = 504
+    Top = 196
+  end
+  object tblChanges: TTable
+    DatabaseName = 'd:\ProjectsD\NP01VN\NP01VN02\Base_07_05_2013\'
+    IndexFieldNames = 'ItemID'
+    MasterFields = 'ItemID'
+    MasterSource = ds1
+    TableName = 'NP01VN02_3.DB'
+    Left = 408
+    Top = 212
+    object intgrfldChangesItemID: TIntegerField
+      FieldName = 'ItemID'
+      Required = True
+    end
+    object intgrfldChangesTableID: TIntegerField
+      FieldName = 'TableID'
+      Required = True
+    end
+    object intgrfldChangesKod: TIntegerField
+      FieldName = 'Kod'
+    end
+    object strngfldChangesChert: TStringField
+      FieldName = 'Chert'
+      Size = 13
+    end
+    object intgrfldChangesKol_1: TIntegerField
+      FieldName = 'Kol_1'
+    end
+    object intgrfldChangesKol: TIntegerField
+      FieldName = 'Kol'
+    end
+    object intgrfldChangesKol1: TIntegerField
+      FieldName = 'Kol1'
+    end
+    object intgrfldChangesKol2: TIntegerField
+      FieldName = 'Kol2'
+    end
+    object intgrfldChangesKol3: TIntegerField
+      FieldName = 'Kol3'
+    end
+    object strngfldChangesTM1: TStringField
+      FieldName = 'TM1'
+      Size = 2
+    end
+    object strngfldChangesTM2: TStringField
+      FieldName = 'TM2'
+      Size = 2
+    end
+    object strngfldChangesTM3: TStringField
+      FieldName = 'TM3'
+      Size = 2
+    end
+    object strngfldChangesTM4: TStringField
+      FieldName = 'TM4'
+      Size = 2
+    end
+    object strngfldChangesTM5: TStringField
+      FieldName = 'TM5'
+      Size = 2
+    end
+    object strngfldChangesTM6: TStringField
+      FieldName = 'TM6'
+      Size = 2
+    end
+    object strngfldChangesTM7: TStringField
+      FieldName = 'TM7'
+      Size = 2
+    end
+    object strngfldChangesTM8: TStringField
+      FieldName = 'TM8'
+      Size = 2
+    end
+    object strngfldChangesTM9: TStringField
+      FieldName = 'TM9'
+      Size = 2
+    end
+    object strngfldChangesTM10: TStringField
+      FieldName = 'TM10'
+      Size = 2
+    end
+    object strngfldChangesTM11: TStringField
+      FieldName = 'TM11'
+      Size = 2
+    end
+    object strngfldChangesTM12: TStringField
+      FieldName = 'TM12'
+      Size = 2
+    end
+    object strngfldChangesTM13: TStringField
+      FieldName = 'TM13'
+      Size = 2
+    end
+    object strngfldChangesTM14: TStringField
+      FieldName = 'TM14'
+      Size = 2
+    end
+    object strngfldChangesTM15: TStringField
+      FieldName = 'TM15'
+      Size = 2
+    end
+    object strngfldChangesTM16: TStringField
+      FieldName = 'TM16'
+      Size = 2
+    end
+    object strngfldChangesTM17: TStringField
+      FieldName = 'TM17'
+      Size = 2
+    end
+    object strngfldChangesTM18: TStringField
+      FieldName = 'TM18'
+      Size = 2
+    end
+    object strngfldChangesTM19: TStringField
+      FieldName = 'TM19'
+      Size = 2
+    end
+    object strngfldChangesTM20: TStringField
+      FieldName = 'TM20'
+      Size = 2
+    end
+    object strngfldChangesTM21: TStringField
+      FieldName = 'TM21'
+      Size = 2
+    end
+    object strngfldChangesTM22: TStringField
+      FieldName = 'TM22'
+      Size = 2
+    end
+    object strngfldChangesTM23: TStringField
+      FieldName = 'TM23'
+      Size = 2
+    end
+    object strngfldChangesTM24: TStringField
+      FieldName = 'TM24'
+      Size = 2
+    end
+    object strngfldChangesPrimech: TStringField
+      FieldName = 'Primech'
+      Size = 255
+    end
+    object dtfldChangesChangeDate: TDateField
+      FieldName = 'ChangeDate'
+    end
+    object strngfldChangesWinUser: TStringField
+      FieldName = 'WinUser'
+    end
+  end
+  object qryChangesUpd1: TQuery
+    SQL.Strings = (
+      'UPDATE "NP01VN02_2.DB"'
+      'SET Changed = :changed'
+      'WHERE ItemID = :itemid')
+    Left = 248
+    Top = 164
+    ParamData = <
+      item
+        DataType = ftString
+        Name = 'changed'
+        ParamType = ptInput
+        Value = ''
+      end
+      item
+        DataType = ftInteger
+        Name = 'itemid'
+        ParamType = ptInput
+        Value = 0
+      end>
+  end
+  object qryChangesUpd2: TQuery
+    SQL.Strings = (
+      
+        'INSERT INTO "NP01VN02_2.DB" (Kod,Chert,Kol_1,Kol,Kol1,Kol2,Kol3,' +
+        'TM1,TM2,TM3,TM4,TM5,TM6,TM7,TM8,TM9,TM10,TM11,TM12,TM13,TM14,TM1' +
+        '5,TM16,TM17,TM18,TM19,TM20,TM21,TM22,TM23,TM24,Primech,Changed,T' +
+        'ableID)'
+      
+        'VALUES (:kod,:chert,:kol_1,:kol,:kol1,:kol2,:kol3,:tm1,:tm2,:tm3' +
+        ',:tm4,:tm5,:tm6,:tm7,:tm8,:tm9,:tm10,:tm11,:tm12,:tm13,:tm14,:tm' +
+        '15,:tm16,:tm17,:tm18,:tm19,:tm20,:tm21,:tm22,:tm23,:tm24,:primec' +
+        'h,:changed,:tableid)')
+    Left = 248
+    Top = 196
+    ParamData = <
+      item
+        DataType = ftInteger
+        Name = 'kod'
+        ParamType = ptInput
+        Value = 0
+      end
+      item
+        DataType = ftString
+        Name = 'chert'
+        ParamType = ptInput
+        Size = 13
+        Value = ''
+      end
+      item
+        DataType = ftInteger
+        Name = 'kol_1'
+        ParamType = ptInput
+        Value = 0
+      end
+      item
+        DataType = ftInteger
+        Name = 'kol'
+        ParamType = ptInput
+        Value = 0
+      end
+      item
+        DataType = ftInteger
+        Name = 'kol1'
+        ParamType = ptInput
+        Value = 0
+      end
+      item
+        DataType = ftInteger
+        Name = 'kol2'
+        ParamType = ptInput
+        Value = 0
+      end
+      item
+        DataType = ftInteger
+        Name = 'kol3'
+        ParamType = ptInput
+        Value = 0
+      end
+      item
+        DataType = ftString
+        Name = 'tm1'
+        ParamType = ptInput
+        Size = 2
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'tm2'
+        ParamType = ptInput
+        Size = 2
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'tm3'
+        ParamType = ptInput
+        Size = 2
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'tm4'
+        ParamType = ptInput
+        Size = 2
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'tm5'
+        ParamType = ptInput
+        Size = 2
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'tm6'
+        ParamType = ptInput
+        Size = 2
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'tm7'
+        ParamType = ptInput
+        Size = 2
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'tm8'
+        ParamType = ptInput
+        Size = 2
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'tm9'
+        ParamType = ptInput
+        Size = 2
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'tm10'
+        ParamType = ptInput
+        Size = 2
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'tm11'
+        ParamType = ptInput
+        Size = 2
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'tm12'
+        ParamType = ptInput
+        Size = 2
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'tm13'
+        ParamType = ptInput
+        Size = 2
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'tm14'
+        ParamType = ptInput
+        Size = 2
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'tm15'
+        ParamType = ptInput
+        Size = 2
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'tm16'
+        ParamType = ptInput
+        Size = 2
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'tm17'
+        ParamType = ptInput
+        Size = 2
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'tm18'
+        ParamType = ptInput
+        Size = 2
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'tm19'
+        ParamType = ptInput
+        Size = 2
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'tm20'
+        ParamType = ptInput
+        Size = 2
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'tm21'
+        ParamType = ptInput
+        Size = 2
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'tm22'
+        ParamType = ptInput
+        Size = 2
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'tm23'
+        ParamType = ptInput
+        Size = 2
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'tm24'
+        ParamType = ptInput
+        Size = 2
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'primech'
+        ParamType = ptInput
+        Size = 255
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'changed'
+        ParamType = ptInput
+        Size = 1
+        Value = ''
+      end
+      item
+        DataType = ftInteger
+        Name = 'tableid'
+        ParamType = ptInput
+        Value = 0
+      end>
+  end
+  object qryChangesUpd3: TQuery
+    SQL.Strings = (
+      'DELETE FROM "NP01VN02_3.DB"'
+      'WHERE ItemID = :itemid')
+    Left = 248
+    Top = 228
+    ParamData = <
+      item
+        DataType = ftInteger
+        Name = 'itemid'
+        ParamType = ptInput
+        Value = 0
+      end>
   end
 end

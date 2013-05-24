@@ -8,7 +8,8 @@ uses
   Forms,
   U1 in 'U1.pas' {NP01VN02Form1},
   U2 in 'U2.pas' {NP01VN02Form2},
-  U3 in 'U3.pas' {NP01VN02Form3};
+  U3 in 'U3.pas' {NP01VN02Form3},
+  U4 in 'U4.pas' {FrmChange};
 
 {$R *.res}
 

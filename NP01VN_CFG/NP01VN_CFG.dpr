@@ -1,4 +1,4 @@
-program NP01VN_CFG;
+-program NP01VN_CFG;
 
 uses
   Forms,

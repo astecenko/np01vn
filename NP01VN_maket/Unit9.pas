@@ -12,16 +12,13 @@ type
     lbl2: TLabel;
     lbl3: TLabel;
     lbl4: TLabel;
-    lbl5: TLabel;
     edt1: TEdit;
     edt2: TEdit;
     edt3: TEdit;
     edt4: TEdit;
-    edt5: TEdit;
     btn1: TButton;
     btn2: TButton;
     btn3: TButton;
-    btn4: TButton;
     btn5: TButton;
     btn6: TButton;
     edt6: TEdit;
@@ -36,7 +33,6 @@ type
     procedure btn1Click(Sender: TObject);
     procedure btn2Click(Sender: TObject);
     procedure btn3Click(Sender: TObject);
-    procedure btn4Click(Sender: TObject);
     procedure btn6Click(Sender: TObject);
     procedure btn5Click(Sender: TObject);
     procedure btn7Click(Sender: TObject);
@@ -70,11 +66,6 @@ begin
   edt4.Text := Unit3.Form3.SelDirParam(edt4.Text);
 end;
 
-procedure TFmDept.btn4Click(Sender: TObject);
-begin
-  edt5.Text := Unit3.Form3.SelDirParam(edt5.Text);
-end;
-
 procedure TFmDept.btn6Click(Sender: TObject);
 begin
   Close;
@@ -94,8 +85,6 @@ begin
     IniDept.WriteString(edt1.Text, 'journaldir', edt3.Text);
     if edt4.Text <> '' then
       IniDept.WriteString(edt1.Text, 'netdir_arc', edt4.Text);
-    if edt5.Text <> '' then
-      IniDept.WriteString(edt1.Text, 'journaldir_arc', edt5.Text);
     if edt6.Text <> '' then
       IniDept.WriteString(edt1.Text, 'backup_dir', edt6.Text);
     if edt7.Text <> '' then

@@ -9,7 +9,8 @@ MAKE = $(ROOT)\bin\make.exe -$(MAKEFLAGS) -f$**
 DCC = $(ROOT)\bin\dcc32.exe $**
 BRCC = $(ROOT)\bin\brcc32.exe $**
 #------------------------------------------------------------------------------
-PROJECTS = NP01VN.exe NP01VN_maket.exe NP01VN01.exe
+PROJECTS = NP01VN.exe NP01VN_maket.exe NP01VN01.exe NP01VN02.exe \
+  NP01VN_CFG.exe
 #------------------------------------------------------------------------------
 default: $(PROJECTS)
 #------------------------------------------------------------------------------
@@ -21,6 +22,12 @@ NP01VN_maket.exe: NP01VN_maket\NP01VN_maket.dpr
   $(DCC)
 
 NP01VN01.exe: NP01VN01\NP01VN01.dpr
+  $(DCC)
+
+NP01VN02.exe: NP01VN02\NP01VN02.dpr
+  $(DCC)
+
+NP01VN_CFG.exe: NP01VN_CFG\NP01VN_CFG.dpr
   $(DCC)
 
 

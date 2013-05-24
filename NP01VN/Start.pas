@@ -707,7 +707,7 @@ begin
     end;
     Table1.Post;
   end;
- // FreeAndNil(MyTM);
+  // FreeAndNil(MyTM);
 end;
 
 {
@@ -1394,10 +1394,10 @@ end;
 
 procedure TFormEdit.btn6Click(Sender: TObject);
 const
-  cs1 = '\\nevz\nevz\ASUP_Data1\LWS\prg_dlph\NP01VN02.exe';
-  //cs1 ='d:\ProjectsD\NP01VN_NEW\trunk\NP01VN02\NP01VN02.exe';
+  //cs1 = '\\nevz\nevz\ASUP_Data1\LWS\prg_dlph\NP01VN02.exe';
+ // cs1 ='d:\ProjectsD\NP01VN\NP01VN02\NP01VN02.exe';
   cs2 = 'Модуль NP01VN02 недоступен!';
-  cs3 = 'C:\lws';
+  // cs3 = 'C:\lws';
 
   function GetTM: string;
   var
@@ -1415,21 +1415,23 @@ var
   s1, s2: string;
 begin
   if isTest then
-    s1 := cs2 + cs1
+    s1 := cs2 + sNP01VN02exe
   else
     s1 := cs2;
-  if FileExists(cs1) then
+  if FileExists(sNP01VN02exe) then
   begin
-    s2 := '/ext';
+    s2 := '/ext /a /p=' + UsrAcs.DivisionStr;
     if Table1.RecordCount > 0 then
     begin
       if Table1.FieldByName(csField_Kod).Value <> null then
         s2 := s2 + ' /ki=' + Table1.FieldByName(csField_Kod).AsString;
       if Table1.FieldByName(csField_Chert).Value <> null then
-        s2 := s2 + ' /chert="' + Table1.FieldByName(csField_Chert).AsString+'"';
-      s2:=s2+GetTM;
+        s2 := s2 + ' /chert="' + Table1.FieldByName(csField_Chert).AsString +
+          '"';
+      s2 := s2 + GetTM;
     end;
-    ShellExecute(Handle, nil, PAnsiChar(cs1), PAnsiChar(s2), cs3,
+    ShellExecute(Handle, nil, PAnsiChar(sNP01VN02exe), PAnsiChar(s2),
+      PAnsiChar(sNP01VN02dir),
       SW_RESTORE);
   end
   else

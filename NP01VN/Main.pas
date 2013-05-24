@@ -70,6 +70,7 @@ var
   LogDir, sDocHead_1, sDocHead_2, sDocHead_3, sDocHead_4: string;
   PrivDir, sExchPrimech, sExchTitle, sCodList, sDivList: string;
   ShowTips, bPrintShifr, bExchPrimech, bExchTitle, bAutoSave: Boolean;
+  sNP01VN01exe, sNP01VN02exe, sNP01VN01dir, sNP01VN02dir: string;
   EiList: TStringList;
   TemplateList: TStringList;
   CurrentQuarter, iAutoSaveSec: Integer;
@@ -368,6 +369,14 @@ begin
       StartDir := Ini.ReadString(csIniLocation, 'startdir', LocalStorage);
       NetFileDir := Ini.ReadString(csIniLocation, 'netfiledir',
         '\\nevz\nevz\ASUP_Data1\BD-ASU\NET\');
+      { внешние модули }
+      sNP01VN01exe := Ini.ReadString(csIniLocation, 'np01vn01_exe',
+        '\\nevz\nevz\ASUP_Data1\LWS\prg_dlph\NP01VN01.exe');
+      sNP01VN02exe := Ini.ReadString(csIniLocation, 'np01vn02_exe',
+        '\\nevz\nevz\ASUP_Data1\LWS\prg_dlph\NP01VN02.exe');
+      sNP01VN01dir := Ini.ReadString(csIniLocation, 'np01vn01_dir', 'C:\lws');
+      sNP01VN02dir := Ini.ReadString(csIniLocation, 'np01vn02_dir', 'C:\lws');
+      {  //  }
       PageBreakTMC := Ini.ReadBool(csIniSheet, 'pagebreak', True);
       ShowExcel := Ini.ReadBool(csIniSheet, 'show', True);
       WorkName := Ini.ReadString(csIniLocation, 'workname', '');
