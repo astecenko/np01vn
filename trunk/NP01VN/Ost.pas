@@ -1536,18 +1536,18 @@ end;
 
 procedure Tfrm42.btn6Click(Sender: TObject);
 const
-  cs1 = '\\nevz\nevz\ASUP_Data1\LWS\prg_dlph\NP01VN01.exe';
+ // cs1 = '\\nevz\nevz\ASUP_Data1\LWS\prg_dlph\NP01VN01.exe';
   cs2 = 'Модуль NP01VN01 недоступен!';
-  cs3 = 'C:\lws';
+ // cs3 = 'C:\lws';
 
 var
   s1, s2: string;
 begin
   if isTest then
-    s1 := cs2 + cs1
+    s1 := cs2 + sNP01VN01exe
   else
     s1 := cs2;
-  if FileExists(cs1) then
+  if FileExists(sNP01VN01exe) then
   begin
     s2 := '/ext';
     if Table42.RecordCount > 0 then
@@ -1559,7 +1559,7 @@ begin
       if Table42.FieldByName(csField_Cp).Value <> null then
         s2 := s2 + ' /cp=' + Table42.FieldByName(csField_Cp).AsString;
     end;
-    ShellExecute(Handle, nil, PAnsiChar(cs1), PAnsiChar(s2), cs3,
+    ShellExecute(Handle, nil, PAnsiChar(sNP01VN01exe), PAnsiChar(s2), PAnsiChar(sNP01VN01dir),
       SW_RESTORE);
   end
   else

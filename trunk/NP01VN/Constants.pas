@@ -44,6 +44,7 @@ const
   csChertArh0 = 'NP01VN02_0.DB';
   csChertArh1 = 'NP01VN02_1.DB';
   csChertArh2 = 'NP01VN02_2.DB';
+  csChertArh3 = 'NP01VN02_3.DB';
 
   //-- Menu --
   csMenu_TMS = 'Nm0';

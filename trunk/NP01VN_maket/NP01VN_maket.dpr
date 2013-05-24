@@ -17,7 +17,12 @@ uses
   Journal in 'Journal.pas' {FmJournal},
   Start in 'Start.pas' {FormEdit},
   Unit9 in 'Unit9.pas' {FmDept},
-  ArcDir in 'ArcDir.pas' {FormArcDir};
+  ArcDir in 'ArcDir.pas' {FormArcDir},
+  TMClass in 'TMClass.pas',
+  ClipB in 'ClipB.pas',
+  Constants in 'Constants.pas',
+  Ost in 'Ost.pas' {frm42},
+  Param in 'Param.pas' {FmParam};
 
 //  Param in 'Param.pas' {FmParam};
 

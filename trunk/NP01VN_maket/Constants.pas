@@ -61,6 +61,9 @@ const
   csDlgSave_FN_Spr = 'Spravka'+csTXTExt;
 //  csDlgSave_FN_Mak = csMaket+csTXTExt;
 
+ csArcDataDir = 'Data';
+  csArcJrnlDir = 'Jrnl';
+
 
   //-- SQL --
   csSQL_MarkClear = 'Update "NP01VN.DB" set Mark=False';

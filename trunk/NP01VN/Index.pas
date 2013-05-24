@@ -231,7 +231,7 @@ procedure ErrorMessage();
 implementation
 
 uses NewString, Main, Start, StrUtils, DocName, KoaUtils, Ost, DateUtils,
-  Journal, USendOASUP, SAVLib_DB, SAVLib_DBF, Math, ShellAPI,Arhiv;
+  Journal, USendOASUP, SAVLib_DB, SAVLib_DBF, Math, ShellAPI, Arhiv;
 var
   ExpImpExt: array[1..10] of string[3] = (
     'db',
@@ -2155,46 +2155,49 @@ begin
         TableName := csNP01F + IntToStr(iRec.Digit);
         CurIndex := iRec.Sort;
         t1.TableName := TableName;
-        t1.Open;
-        t1.IndexName := t1.IndexDefs.Items[CurIndex].Name;
-        t1.First;
-        aRow := aRow + 1; // данные таблицы
-        CurKod := t1.fieldbyname(csField_Kod).AsInteger;
-        CurPr := t1[csField_Primech];
-        Sheet.Cells.Item[aRow, 1].Value := CurKod;
-        Sheet.Cells.Item[aRow, 2].Value := CurPr;
-        SetBorderNative(Sheet.RCRange[aRow, 1, aRow, 3], 0);
-        Inc(aRow);
-        t1.Next;
-        csPrimPrev := CurPr;
-        while not t1.Eof do
+        if t1.Exists then
         begin
-          if t1[csField_Primech] <> csPrimPrev then
+          t1.Open;
+          t1.IndexName := t1.IndexDefs.Items[CurIndex].Name;
+          t1.First;
+          aRow := aRow + 1; // данные таблицы
+          CurKod := t1.fieldbyname(csField_Kod).AsInteger;
+          CurPr := t1[csField_Primech];
+          Sheet.Cells.Item[aRow, 1].Value := CurKod;
+          Sheet.Cells.Item[aRow, 2].Value := CurPr;
+          SetBorderNative(Sheet.RCRange[aRow, 1, aRow, 3], 0);
+          Inc(aRow);
+          t1.Next;
+          csPrimPrev := CurPr;
+          while not t1.Eof do
           begin
-            csPrimPrev := t1[csField_Primech];
-            CurPr := t1[csField_Primech];
-            CurKod := t1.fieldbyname(csField_Kod).AsInteger;
-            Sheet.Cells.Item[aRow, 1].Value := CurKod;
-            Sheet.Cells.Item[aRow, 2].Value := CurPr;
-            SetBorderNative(Sheet.RCRange[aRow, 1, aRow, 3], 0);
-            Sheet.RCRange[aRow, 1, aRow, 3].wraptext := True;
-            Sheet.RCRange[aRow, 1, aRow, 3].VerticalAlignment := xlVAlignTop;
-            Inc(aRow);
-          end
-          else if t1[csField_Kod] <> Null then
-          begin
-            if t1[csField_Kod] <> CurKod then
+            if t1[csField_Primech] <> csPrimPrev then
             begin
+              csPrimPrev := t1[csField_Primech];
+              CurPr := t1[csField_Primech];
               CurKod := t1.fieldbyname(csField_Kod).AsInteger;
               Sheet.Cells.Item[aRow, 1].Value := CurKod;
               Sheet.Cells.Item[aRow, 2].Value := CurPr;
               SetBorderNative(Sheet.RCRange[aRow, 1, aRow, 3], 0);
+              Sheet.RCRange[aRow, 1, aRow, 3].wraptext := True;
+              Sheet.RCRange[aRow, 1, aRow, 3].VerticalAlignment := xlVAlignTop;
               Inc(aRow);
+            end
+            else if t1[csField_Kod] <> Null then
+            begin
+              if t1[csField_Kod] <> CurKod then
+              begin
+                CurKod := t1.fieldbyname(csField_Kod).AsInteger;
+                Sheet.Cells.Item[aRow, 1].Value := CurKod;
+                Sheet.Cells.Item[aRow, 2].Value := CurPr;
+                SetBorderNative(Sheet.RCRange[aRow, 1, aRow, 3], 0);
+                Inc(aRow);
+              end;
             end;
+            t1.Next;
           end;
-          t1.Next;
+          t1.Close;
         end;
-        t1.Close;
         aRow := aRow + 2;
       end;
     end; // for iRow := 0 to Rowlist.Count-1
@@ -2283,50 +2286,53 @@ begin
         t1.DatabaseName := StartDir + WorkName + '\';
         TableName := csNP01F + IntToStr(iRec.Digit);
         t1.TableName := TableName;
-        t1.Open;
-        t1.GetIndexNames(IndexNames1);
-        if IndexNames1.Count = 0 then
-          t1.IndexName := ''
-        else
-          t1.IndexName := 'TMS_Ki';
-        t1.First;
-        aRow := aRow + 1; // данные таблицы
-        CurKod := t1.FieldByName(csField_Ki).AsInteger;
-        CurPr := t1.FieldByName(csField_Primech).AsString;
-        Sheet.Cells.Item[aRow, 1].Value := CurKod;
-        Sheet.Cells.Item[aRow, 2].Value := CurPr;
-        SetBorderNative(Sheet.RCRange[aRow, 1, aRow, 3], 0);
-        Inc(aRow);
-        t1.Next;
-        csPrimPrev := CurPr;
-        while not t1.Eof do
+        if t1.Exists then
         begin
-          if t1.FieldByName(csField_Primech).AsString <> csPrimPrev then
+          t1.Open;
+          t1.GetIndexNames(IndexNames1);
+          if IndexNames1.Count = 0 then
+            t1.IndexName := ''
+          else
+            t1.IndexName := 'TMS_Ki';
+          t1.First;
+          aRow := aRow + 1; // данные таблицы
+          CurKod := t1.FieldByName(csField_Ki).AsInteger;
+          CurPr := t1.FieldByName(csField_Primech).AsString;
+          Sheet.Cells.Item[aRow, 1].Value := CurKod;
+          Sheet.Cells.Item[aRow, 2].Value := CurPr;
+          SetBorderNative(Sheet.RCRange[aRow, 1, aRow, 3], 0);
+          Inc(aRow);
+          t1.Next;
+          csPrimPrev := CurPr;
+          while not t1.Eof do
           begin
-            csPrimPrev := t1.FieldByName(csField_Primech).AsString;
-            CurPr := t1.FieldByName(csField_Primech).AsString;
-            CurKod := t1.FieldByName(csField_Ki).AsInteger;
-            Sheet.Cells.Item[aRow, 1].Value := CurKod;
-            Sheet.Cells.Item[aRow, 2].Value := CurPr;
-            SetBorderNative(Sheet.RCRange[aRow, 1, aRow, 3], 0);
-            Sheet.RCRange[aRow, 1, aRow, 3].wraptext := True;
-            Sheet.RCRange[aRow, 1, aRow, 3].VerticalAlignment := xlVAlignTop;
-            Inc(aRow);
-          end
-          else if t1.FieldByName(csField_Ki).Value <> Null then
-          begin
-            if t1.FieldByName(csField_Ki).AsInteger <> CurKod then
+            if t1.FieldByName(csField_Primech).AsString <> csPrimPrev then
             begin
+              csPrimPrev := t1.FieldByName(csField_Primech).AsString;
+              CurPr := t1.FieldByName(csField_Primech).AsString;
               CurKod := t1.FieldByName(csField_Ki).AsInteger;
               Sheet.Cells.Item[aRow, 1].Value := CurKod;
               Sheet.Cells.Item[aRow, 2].Value := CurPr;
               SetBorderNative(Sheet.RCRange[aRow, 1, aRow, 3], 0);
+              Sheet.RCRange[aRow, 1, aRow, 3].wraptext := True;
+              Sheet.RCRange[aRow, 1, aRow, 3].VerticalAlignment := xlVAlignTop;
               Inc(aRow);
+            end
+            else if t1.FieldByName(csField_Ki).Value <> Null then
+            begin
+              if t1.FieldByName(csField_Ki).AsInteger <> CurKod then
+              begin
+                CurKod := t1.FieldByName(csField_Ki).AsInteger;
+                Sheet.Cells.Item[aRow, 1].Value := CurKod;
+                Sheet.Cells.Item[aRow, 2].Value := CurPr;
+                SetBorderNative(Sheet.RCRange[aRow, 1, aRow, 3], 0);
+                Inc(aRow);
+              end;
             end;
+            t1.Next;
           end;
-          t1.Next;
+          t1.Close;
         end;
-        t1.Close;
         aRow := aRow + 2;
       end;
     end; // for iRow := 0 to Rowlist.Count-1
@@ -2402,7 +2408,8 @@ begin
   SendOASUP := TSendOASUP.Create(Application);
   SendOASUP.ShowModal();
   FreeAndNil(SendOASUP);
-  if (SendOASUPDate > 0) and ArhivTMSCheck(ArhivTMSDir) and CheckOPiUMCDate then
+  if (SendOASUPDate > 0) and ArhivTMSCheck(ArhivTMSDir) and
+    ArhivChertCheck(ArhivChertDir) and CheckOPiUMCDate then
   begin
     ButtonNet.Tag := 0;
     FmJournal := TFmJournal.Create(Application);

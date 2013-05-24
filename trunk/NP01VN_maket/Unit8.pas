@@ -33,19 +33,19 @@ implementation
 
 procedure TForm8.BitBtn1Click(Sender: TObject);
 begin
-fl_disk:=3;
+fl_disk:=3;   //выход
 close;
 end;
 
 procedure TForm8.Button1Click(Sender: TObject);
 begin
-fl_disk:=1;
+fl_disk:=1;  //дописать
 close;
 end;
 
 procedure TForm8.Button2Click(Sender: TObject);
 begin
-fl_disk:=2;
+fl_disk:=2;  //перезаписать
 close;
 end;
 

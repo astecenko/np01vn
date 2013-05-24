@@ -23,6 +23,7 @@ type
     procedure lst1Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormResize(Sender: TObject);
   private
     FPodrazdDir: string;
     procedure SetPodrazdDir(const Value: string);
@@ -64,17 +65,25 @@ procedure TFormArcDir.Button1Click(Sender: TObject);
 var
   s: string;
 begin
-  s := '';
+ { s := '';
   if InputQuery('Создание нового архивного каталога', 'B ' + PodrazdDir, s) then
   begin
-    ForceDirectories(PodrazdDir+s);
-    
-  end;
+    ForceDirectories(PodrazdDir + s);
+
+  end;}
 end;
 
 procedure TFormArcDir.FormShow(Sender: TObject);
 begin
- SAVLib.GetDirList(Self.lst1.Items, PodrazdDir);
+  SAVLib.GetDirList(Self.lst1.Items, PodrazdDir);
+end;
+
+procedure TFormArcDir.FormResize(Sender: TObject);
+begin
+  if Self.Width < 200 then
+    Self.Width := 200;
+  if Self.Height < 200 then
+    Self.Height := 200;
 end;
 
 end.

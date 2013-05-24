@@ -23,8 +23,14 @@ function ArhivChertCheck(const ArhivChertDir: string): Boolean;
       'create table "NP01VN02_1.DB" (TableID autoinc, DocID integer, Title varchar(255), Digit integer, Kod integer, Data char(10), Quart smallint)';
     csNP01VN_Chert_2_1 = 'create table "NP01VN02_2.DB" ';
     csNP01VN_Chert_2_2 =
-      '(TableID integer, Kod integer, Chert char(13), Kol_1 integer, Kol integer, Kol1 integer, Kol2 integer, Kol3 integer,';
-    csNP01VN_Chert_2_3 = ' Primech char(255))';
+      '(ItemID autoinc, TableID integer, Kod integer, Chert char(13), Kol_1 integer, Kol integer, Kol1 integer, Kol2 integer, Kol3 integer,';
+    csNP01VN_Chert_2_3 = ' Primech char(255), Changed char(1), PRIMARY KEY (ItemID))';
+    csNP01VN_Chert_3_1 = 'create table "NP01VN02_3.DB" ';
+    csNP01VN_Chert_3_2 =
+      '(ItemID integer, TableID integer, Kod integer, Chert char(13), Kol_1 integer, Kol integer, Kol1 integer, Kol2 integer, Kol3 integer,';
+    csNP01VN_Chert_3_3 = ' Primech char(255), ChangeDate date, WinUser char(20), PRIMARY KEY (ItemID))';
+    csNP01VN_Chert_Index_1 = 'CREATE INDEX Table1 ON "NP01VN02_3.DB" (TableID)';
+    csNP01VN_Chert_Index_2 = 'CREATE INDEX Table1 ON "NP01VN02_2.DB" (TableID)';
   var
     q: TQuery;
     s: string;
@@ -41,7 +47,7 @@ function ArhivChertCheck(const ArhivChertDir: string): Boolean;
 
   begin
     Result := True;
-    for i := 0 to 2 do
+    for i := 0 to 3 do
     begin
       s := DirPath + 'NP01VN02_' + inttostr(i) + '.DB';
       if FileExists(s) then
@@ -62,6 +68,13 @@ function ArhivChertCheck(const ArhivChertDir: string): Boolean;
         q.ExecSQL;
         q.SQL.Text := csNP01VN_Chert_2_1 + csNP01VN_Chert_2_2 + GetTMSQL +
           csNP01VN_Chert_2_3;
+        q.ExecSQL;
+        q.SQL.Text := csNP01VN_Chert_3_1 + csNP01VN_Chert_3_2 + GetTMSQL +
+          csNP01VN_Chert_3_3;
+        q.ExecSQL;
+        q.SQL.Text:=csNP01VN_Chert_Index_1;
+        q.ExecSQL;
+        q.SQL.Text:=csNP01VN_Chert_Index_2;
         q.ExecSQL;
       except
         Result := False;
@@ -84,7 +97,7 @@ function ArhivChertCheck(const ArhivChertDir: string): Boolean;
   begin
     if Application.MessageBox(PAnsiChar('Создать таблицы в ' + ArhivChertDir +
       '?'),
-      'Таблицы архива ТМЦ не обнаружены', MB_YESNOCANCEL + MB_ICONWARNING
+      'Таблицы архива по чертежам не обнаружены', MB_YESNOCANCEL + MB_ICONWARNING
       + MB_DEFBUTTON2) = IDYES then
       Result := CreateArhChert(ArhivChertDir)
     else
@@ -96,7 +109,7 @@ begin
   begin
     if (FileExists(ArhivChertDir + csChertArh0)) and
       (FileExists(ArhivChertDir + csChertArh1)) and (FileExists(ArhivChertDir +
-        csChertArh2)) then
+      csChertArh2)) then
       Result := True
     else
       Result := CreateArhChertAsk;
