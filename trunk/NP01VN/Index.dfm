@@ -220,17 +220,6 @@ object FormIndex: TFormIndex
         Visible = True
       end>
   end
-  object DBEditNum: TDBEdit
-    Left = 473
-    Top = 288
-    Width = 65
-    Height = 21
-    DataField = 'Digit'
-    DataSource = DataSourceIndex
-    TabOrder = 5
-    Visible = False
-    OnChange = DBEditNumChange
-  end
   object Codes: TButton
     Left = 546
     Top = 370
@@ -238,7 +227,7 @@ object FormIndex: TFormIndex
     Height = 33
     Anchors = [akRight, akBottom]
     Caption = #1057#1074#1086#1076#1082#1072' '#1082#1086#1076#1086#1074
-    TabOrder = 7
+    TabOrder = 6
     WordWrap = True
     OnClick = CodesClick
   end
@@ -258,7 +247,7 @@ object FormIndex: TFormIndex
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 8
+    TabOrder = 7
     WordWrap = True
     OnClick = ButtonCopyClick
   end
@@ -269,7 +258,7 @@ object FormIndex: TFormIndex
     Height = 17
     Anchors = [akRight, akBottom]
     Caption = 'Excel'
-    TabOrder = 6
+    TabOrder = 5
     Visible = False
     WordWrap = True
     OnClick = ButtonExcelClick
@@ -281,7 +270,7 @@ object FormIndex: TFormIndex
     Height = 33
     Anchors = [akRight, akBottom]
     Caption = #1056#1077#1082#1074#1080#1079#1080#1090#1099' '#1076#1086#1082#1091#1084#1077#1085#1090#1072
-    TabOrder = 9
+    TabOrder = 8
     WordWrap = True
     OnClick = bDocNameClick
   end
@@ -292,7 +281,7 @@ object FormIndex: TFormIndex
     Height = 25
     Anchors = [akTop, akRight]
     Caption = #1058'&'#1052#1062
-    TabOrder = 10
+    TabOrder = 9
     OnClick = btn1Click
     Glyph.Data = {
       76010000424D7601000000000000760000002800000020000000100000000100
@@ -321,7 +310,7 @@ object FormIndex: TFormIndex
     Caption = #1046#1091#1088#1085#1072#1083' '#1087#1077#1088#1077#1076#1072#1095#1080
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 11
+    TabOrder = 10
     WordWrap = True
     OnClick = ButtonNetClick
   end
@@ -332,7 +321,7 @@ object FormIndex: TFormIndex
     Height = 25
     Anchors = [akTop, akRight]
     Caption = #1053#1086#1074#1072#1103
-    TabOrder = 12
+    TabOrder = 11
     OnClick = BitBtnCreateClick
     Glyph.Data = {
       76010000424D7601000000000000760000002800000020000000100000000100
@@ -365,7 +354,7 @@ object FormIndex: TFormIndex
     Anchors = [akTop, akRight]
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 14
+    TabOrder = 13
     OnClick = btn2Click
     Glyph.Data = {
       76010000424D7601000000000000760000002800000020000000100000000100
@@ -391,7 +380,7 @@ object FormIndex: TFormIndex
     Anchors = [akTop, akRight]
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 15
+    TabOrder = 14
     OnClick = btn3Click
     Glyph.Data = {
       76010000424D7601000000000000760000002800000020000000100000000100
@@ -415,7 +404,7 @@ object FormIndex: TFormIndex
     Height = 25
     Anchors = [akTop, akRight]
     Caption = #1052#1072#1090#1077#1088#1080#1072#1083#1099
-    TabOrder = 16
+    TabOrder = 15
     Visible = False
     OnClick = btnOPiUTMCClick
   end
@@ -426,7 +415,7 @@ object FormIndex: TFormIndex
     Height = 33
     Anchors = [akRight, akBottom]
     Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1074' Ms Excel'
-    TabOrder = 17
+    TabOrder = 16
     WordWrap = True
     OnClick = btnNativeExcelClick
   end

@@ -26,7 +26,6 @@ type
     TableIndex: TTable;
     DataSourceIndex: TDataSource;
     SaveDialog1: TSaveDialog;
-    DBEditNum: TDBEdit;
     Label1: TLabel;
     ButtonExcel: TButton;
     TableIndexNum: TIntegerField;
@@ -108,7 +107,6 @@ type
     procedure BitBtnDownClick(Sender: TObject);
     procedure BitbtnCreateClick(Sender: TObject);
     procedure BitBtnUpClick(Sender: TObject);
-    procedure DBEditNumChange(Sender: TObject);
     procedure DBGridIndexDblClick(Sender: TObject);
     procedure ButtonExcelClick(Sender: TObject);
     procedure ButtonCopyClick(Sender: TObject);
@@ -878,6 +876,7 @@ begin
   for i := 0 to RowList.Count - 1 do
     TObject(RowList[i]).Free;
   FreeAndNil(RowList);
+  TableIndex.Close;
 end;
 
 { TRecord }
@@ -1969,10 +1968,6 @@ begin
   GetFromKod2Str(IntToStr(Kod_02), k2Quartal, k2Month, k2Type);
 end;
 
-procedure TFormIndex.DBEditNumChange(Sender: TObject);
-begin
-  EnableButtons(True);
-end;
 
 {
 Двойной клик по таблице

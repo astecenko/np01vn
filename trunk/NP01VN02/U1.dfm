@@ -13,8 +13,8 @@ object NP01VN02Form1: TNP01VN02Form1
   OldCreateOrder = False
   Position = poDesktopCenter
   OnCanResize = FormCanResize
-  OnClose = FormClose
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 13
   object spl1: TSplitter

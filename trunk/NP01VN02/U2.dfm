@@ -41,7 +41,7 @@ object NP01VN02Form2: TNP01VN02Form2
     object lbl1: TLabel
       Left = 0
       Top = 2
-      Width = 357
+      Width = 425
       Height = 13
       Align = alCustom
       Alignment = taCenter
@@ -290,6 +290,8 @@ object NP01VN02Form2: TNP01VN02Form2
           EditButtons = <>
           FieldName = 'TM7'
           Footers = <>
+          Title.Caption = ' '
+          Width = 17
         end
         item
           EditButtons = <>
