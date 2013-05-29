@@ -183,7 +183,6 @@ type
     strngfldChangesWinUser: TStringField;
     dbtxtWinUser: TDBText;
     procedure FormCreate(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure cbbYearChange(Sender: TObject);
     procedure ds1DataChange(Sender: TObject; Field: TField);
     procedure btnSearchClick(Sender: TObject);
@@ -226,6 +225,7 @@ type
     procedure btnChangeClick(Sender: TObject);
     procedure dbgrdh1GetCellParams(Sender: TObject; Column: TColumnEh;
       AFont: TFont; var Background: TColor; State: TGridDrawState);
+    procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
   public
@@ -446,13 +446,6 @@ procedure TNP01VN02Form1.SetFormCaption(const s: string);
 begin
   NP01VN02Form1.Caption := csFormCaption + {parCex +} ' - ' + cbbYear.Text +
   ' год  - ' + s + ' стр.';
-end;
-
-procedure TNP01VN02Form1.FormClose(Sender: TObject;
-  var Action: TCloseAction);
-begin
-  if PrivDir <> '' then
-    RemoveDir(PrivDir);
 end;
 
 procedure TNP01VN02Form1.SetRecCountInStatus(const DefaultValue: string = '');
@@ -1557,6 +1550,14 @@ begin
       'Д': //добавлено
         Background := txtAdded.Color;
     end;
+end;
+
+procedure TNP01VN02Form1.FormDestroy(Sender: TObject);
+begin
+ tblChanges.Close;
+ qry1.Close;
+ if PrivDir <> '' then
+    RemoveDir(PrivDir);
 end;
 
 end.

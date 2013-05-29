@@ -390,6 +390,7 @@ end;
 procedure TNP01VN01Form1.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
+  qry1.Close;
   if PrivDir <> '' then
     RemoveDir(PrivDir);
 end;
