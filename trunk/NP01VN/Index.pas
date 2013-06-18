@@ -910,7 +910,7 @@ begin
     begin
       CurDigit := FieldByName(csField_Digit).AsInteger;
       CurNum := FieldByName(csField_Num).AsInteger;
-      if Active = True then
+      if Active then
         TableIndex.Active := False;
       EmptyTable();
       Open;
@@ -1968,7 +1968,6 @@ begin
   GetFromKod2Str(IntToStr(Kod_02), k2Quartal, k2Month, k2Type);
 end;
 
-
 {
 ƒвойной клик по таблице
 }
@@ -2978,7 +2977,7 @@ var
   WorkBook: IXLSWorkbook;
   Sheet: IXLSWorksheet;
   Range: IXLSRange;
-  aRow, aCol, I, j: Integer;
+  aRow, aRow_old, aCol, I, j: Integer;
   TableRow: TTable;
   CurIndex: Integer;
   num_i: Integer;
@@ -2993,6 +2992,48 @@ var
   exc_start: TTime;
   sPrevPrim, sPrimTek: string; //хранит примечание из предыдущ записи
   sPrevTitle, sTitleTek: string;
+
+  function GetHAlign(const aParam1: integer): Cardinal;
+  begin
+    case aParam1 of
+      1: Result := xlHAlignJustify;
+      2: Result := xlHAlignLeft;
+      3: Result := xlHAlignCenter;
+      4: Result := xlHAlignRight;
+    else
+      Result := xlHAlignGeneral;
+    end;
+
+  end;
+
+  procedure SetCollAllign(const aTableStart, aRecCount: integer);
+  var
+    ii: integer;
+    jj: cardinal;
+  begin
+    for ii := 1 to 9 do
+    begin
+      if ExcelColumnHAlign[ii] > 0 then
+        Sheet.RCRange[aTableStart, ii, aTableStart + aRecCount,
+          ii].HorizontalAlignment := GetHAlign(ExcelColumnHAlign[ii]);
+    end;
+    if ExcelColumnHAlign[10] > 0 then
+    begin
+      jj := GetHAlign(ExcelColumnHAlign[10]);
+      for ii := 10 to 23 do
+      begin
+        Sheet.RCRange[aTableStart, ii, aTableStart + aRecCount,
+          ii].HorizontalAlignment := jj;
+      end;
+    end;
+    if ExcelColumnHAlign[11] > 0 then
+      Sheet.RCRange[aTableStart, 24, aTableStart + aRecCount,
+        24].HorizontalAlignment := GetHAlign(ExcelColumnHAlign[11]);
+    if ExcelColumnHAlign[12] > 0 then
+      Sheet.RCRange[aTableStart, 25, aTableStart + aRecCount,
+        25].HorizontalAlignment := GetHAlign(ExcelColumnHAlign[12]);
+  end;
+
 begin
   if isTest then
     exc_start := Sysutils.Time;
@@ -3021,20 +3062,20 @@ begin
       ColumnCol := 24;
     Sheet.Cells.Columns[1].Font.Bold := True;
     Sheet.Cells.Columns[2].Font.Bold := True;
-    Sheet.Cells.Columns[1].ColumnWidth := 5;
-    Sheet.Cells.Columns[2].ColumnWidth := 1.55;
-    Sheet.Cells.Columns[3].ColumnWidth := 6.14;
-    Sheet.Cells.Columns[4].ColumnWidth := 16;
-    Sheet.Cells.Columns[5].ColumnWidth := 6;
-    Sheet.Cells.Columns[6].ColumnWidth := 10;
-    Sheet.Cells.Columns[7].ColumnWidth := 10;
-    Sheet.Cells.Columns[8].ColumnWidth := 10;
-    Sheet.Cells.Columns[9].ColumnWidth := 1;
+    Sheet.Cells.Columns[1].ColumnWidth := 5 + ExcelColumnWidth[1];
+    Sheet.Cells.Columns[2].ColumnWidth := 1.55 + ExcelColumnWidth[2];
+    Sheet.Cells.Columns[3].ColumnWidth := 6.14 + ExcelColumnWidth[3];
+    Sheet.Cells.Columns[4].ColumnWidth := 16 + ExcelColumnWidth[4];
+    Sheet.Cells.Columns[5].ColumnWidth := 6 + ExcelColumnWidth[5];
+    Sheet.Cells.Columns[6].ColumnWidth := 10 + ExcelColumnWidth[6];
+    Sheet.Cells.Columns[7].ColumnWidth := 10 + ExcelColumnWidth[7];
+    Sheet.Cells.Columns[8].ColumnWidth := 10 + ExcelColumnWidth[8];
+    Sheet.Cells.Columns[9].ColumnWidth := 1 + ExcelColumnWidth[9];
     for i := 10 to 23 do
-      Sheet.Cells.Columns[i].ColumnWidth := 2.29;
-    Sheet.Cells.Columns[24].ColumnWidth := 25;
+      Sheet.Cells.Columns[i].ColumnWidth := 2.29 + ExcelColumnWidth[10];
+    Sheet.Cells.Columns[24].ColumnWidth := 25 + ExcelColumnWidth[11];
     if bPrintShifr then
-      Sheet.Cells.Columns[25].ColumnWidth := 30
+      Sheet.Cells.Columns[25].ColumnWidth := 30 + ExcelColumnWidth[12]
     else
       Sheet.Cells.Columns[25].ColumnWidth := 0;
     TitleWidth := 0;
@@ -3153,12 +3194,16 @@ begin
               SetBorderNative(Range, -1);
               Sheet.RCRange[aRow, 10, aRow + TableRow.RecordCount - 1,
                 21].NumberFormat := '00';
+              aRow_old := aRow;
+              {Sheet.RCRange[aRow, 10, aRow + TableRow.RecordCount - 1,
+                21].HorizontalAlignment}
               TableRow.First;
               I := 1;
               while not TableRow.Eof do
               begin
                 Sheet.Cells.Item[aRow, 1].Value := I;
                 Sheet.Cells.Item[aRow, 3].HorizontalAlignment := xlHAlignRight;
+                Sheet.Cells.Item[aRow, 4].HorizontalAlignment := xlHAlignRight;
                 Sheet.Cells.Item[aRow, 4].Font.Size := ChertFontSize;
                 for aCol := 3 to 8 do
                   Sheet.Cells.Item[aRow, aCol].Value := TableRow.Fields[aCol -
@@ -3210,6 +3255,7 @@ begin
                 Inc(I);
                 TableRow.Next;
               end;
+              SetCollAllign(aRow_old, TableRow.RecordCount);
               TableRow.Close;
               // защита €чеек
               Sheet.RCRange[TableBegin - 2, 1, aRow - 1, 23].Locked := True;
@@ -3281,6 +3327,7 @@ begin
               TableBegin := aRow;
               Range := Sheet.RCRange[TableBegin, 1, TableBegin +
                 TableRow.RecordCount - 1, ColumnCol];
+              aRow_old := aRow;
               SetBorderNative(Range, -1);
               num_i := Ord(TableRow.Fields.FindField('Num') = nil);
               TableRow.First;
@@ -3289,6 +3336,7 @@ begin
               begin
                 Sheet.Cells.Item[aRow, 1].Value := I;
                 Sheet.Cells.Item[aRow, 3].HorizontalAlignment := xlHAlignLeft;
+                Sheet.Cells.Item[aRow, 4].HorizontalAlignment := xlHAlignRight;
                 Sheet.Cells[aRow, 4].Font.Size := ChertFontSize;
                 Sheet.Cells.Item[aRow, 3].Value := TableRow.Fields[4 -
                   num_i].AsString;
@@ -3361,6 +3409,7 @@ begin
                 Inc(I);
                 TableRow.Next;
               end;
+              SetCollAllign(aRow_old, TableRow.RecordCount);
               TableRow.Close;
               // защита €чеек
               Sheet.RCRange[TableBegin - 2, 1, aRow - 1, ColumnCol].Locked :=
@@ -3433,6 +3482,7 @@ begin
               TableBegin := aRow;
               Range := Sheet.RCRange[TableBegin, 1, TableBegin +
                 TableRow.RecordCount - 1, ColumnCol];
+              aRow_old := aRow;
               SetBorderNative(Range, -1);
               num_i := Ord(TableRow.Fields.FindField('Num') <> nil);
               TableRow.First;
@@ -3441,6 +3491,7 @@ begin
               begin
                 Sheet.Cells.Item[aRow, 1].Value := I;
                 Sheet.Cells.Item[aRow, 3].HorizontalAlignment := xlHAlignLeft;
+                Sheet.Cells.Item[aRow, 4].HorizontalAlignment := xlHAlignRight;
                 Sheet.Cells.Item[aRow, 4].Font.Size := ChertFontSize;
                 Sheet.Cells.Item[aRow, 4].NumberFormat := '@';
                 Sheet.Cells.Item[aRow, 3].Value := TableRow.Fields[3 +
@@ -3506,6 +3557,7 @@ begin
                 Inc(I);
                 TableRow.Next;
               end;
+              SetCollAllign(aRow_old, TableRow.RecordCount);
               TableRow.Close;
               // защита €чеек
               Sheet.RCRange[TableBegin - 2, 1, aRow - 1, 25].Locked := True;
@@ -3573,12 +3625,14 @@ begin
               SetBorderNative(Range, -1);
               Sheet.RCRange[aRow, 10, aRow + TableRow.RecordCount - 1,
                 23].NumberFormat := '00';
+              aRow_old := aRow;
               TableRow.First;
               I := 1;
               while not TableRow.Eof do
               begin
                 Sheet.Cells.Item[aRow, 1].Value := I;
                 Sheet.Cells.Item[aRow, 3].HorizontalAlignment := xlHAlignCenter;
+                Sheet.Cells.Item[aRow, 4].HorizontalAlignment := xlHAlignRight;
                 Sheet.Cells.Item[aRow, 4].Font.Size := ChertFontSize;
                 for aCol := 3 to 5 do
                   Sheet.Cells.Item[aRow, aCol].Value := TableRow.Fields[aCol -
@@ -3636,6 +3690,7 @@ begin
                 Inc(I);
                 TableRow.Next;
               end;
+              SetCollAllign(aRow_old, TableRow.RecordCount);
               TableRow.Close;
               Sheet.RCRange[TableBegin - 2, 1, aRow - 1, 23].Locked := True;
             end;
@@ -3709,12 +3764,14 @@ begin
               SetBorderNative(Range, -1);
               Sheet.RCRange[aRow, 10, aRow + TableRow.RecordCount - 1,
                 23].NumberFormat := '00';
+              aRow_old := aRow;
               TableRow.First;
               I := 1;
               while not TableRow.Eof do
               begin
                 Sheet.Cells.Item[aRow, 1].Value := I;
                 Sheet.Cells.Item[aRow, 3].HorizontalAlignment := xlHAlignLeft;
+                Sheet.Cells.Item[aRow, 4].HorizontalAlignment := xlHAlignRight;
                 Sheet.Cells.Item[aRow, 4].Font.Size := ChertFontSize;
                 for aCol := 3 to 5 do
                   Sheet.Cells.Item[aRow, aCol].Value := TableRow.Fields[aCol -
@@ -3767,6 +3824,7 @@ begin
                 Inc(I);
                 TableRow.Next;
               end;
+              SetCollAllign(aRow_old, TableRow.RecordCount);
               TableRow.Close;
               // защита €чеек
               Sheet.RCRange[TableBegin - 2, 1, aRow - 1, 23].Locked := True;

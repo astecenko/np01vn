@@ -115,7 +115,7 @@ AutoIncBuild=0
 MajorVer=1
 MinorVer=4
 Release=3
-Build=10
+Build=11
 Debug=0
 PreRelease=0
 Special=0
@@ -126,14 +126,14 @@ CodePage=1251
 [Version Info Keys]
 CompanyName=ПК НЭВЗ
 FileDescription=Запись номенклатуры для корректировки плана и лимита (остатка лимита)
-FileVersion=1.4.3.10
+FileVersion=1.4.3.11
 InternalName=NP01VN
 LegalCopyright=(C) Каралкина, Стеценко
 LegalTrademarks=Отдел АСУП ООО "ПК "НЭВЗ"
 OriginalFilename=NP01VN.EXE
 ProductName=
 ProductVersion=1.4.3.0
-Comments=Объединены корректировка плана и [остатка]лимита
+Comments=
 [HistoryLists\hlUnitAliases]
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;

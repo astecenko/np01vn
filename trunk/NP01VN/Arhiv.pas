@@ -6,7 +6,8 @@ function ArhivChertCheck(const ArhivChertDir: string): Boolean;
 function ArhivTMSCheck(const ArhivTMSDir: string): Boolean;
 function ArhTableInit(tabl1, tabl2, tabl3: TTable; const DataBaseName,
   Tabl1Name, Tabl2Name, Tabl3Name: string): Boolean;
-function DeleteDocFromArhiv(const aDocName, aArhivPath, aTaskNumb: string):
+function DeleteDocFromArhiv(const aDocName, aDocNumDate, aArhivPath, aTaskNumb:
+  string):
   Boolean;
 
 implementation
@@ -24,11 +25,13 @@ function ArhivChertCheck(const ArhivChertDir: string): Boolean;
     csNP01VN_Chert_2_1 = 'create table "NP01VN02_2.DB" ';
     csNP01VN_Chert_2_2 =
       '(ItemID autoinc, TableID integer, Kod integer, Chert char(13), Kol_1 integer, Kol integer, Kol1 integer, Kol2 integer, Kol3 integer,';
-    csNP01VN_Chert_2_3 = ' Primech char(255), Changed char(1), PRIMARY KEY (ItemID))';
+    csNP01VN_Chert_2_3 =
+      ' Primech char(255), Changed char(1), PRIMARY KEY (ItemID))';
     csNP01VN_Chert_3_1 = 'create table "NP01VN02_3.DB" ';
     csNP01VN_Chert_3_2 =
       '(ItemID integer, TableID integer, Kod integer, Chert char(13), Kol_1 integer, Kol integer, Kol1 integer, Kol2 integer, Kol3 integer,';
-    csNP01VN_Chert_3_3 = ' Primech char(255), ChangeDate date, WinUser char(20), PRIMARY KEY (ItemID))';
+    csNP01VN_Chert_3_3 =
+      ' Primech char(255), ChangeDate date, WinUser char(20), PRIMARY KEY (ItemID))';
     csNP01VN_Chert_Index_1 = 'CREATE INDEX Table1 ON "NP01VN02_3.DB" (TableID)';
     csNP01VN_Chert_Index_2 = 'CREATE INDEX Table1 ON "NP01VN02_2.DB" (TableID)';
   var
@@ -72,9 +75,9 @@ function ArhivChertCheck(const ArhivChertDir: string): Boolean;
         q.SQL.Text := csNP01VN_Chert_3_1 + csNP01VN_Chert_3_2 + GetTMSQL +
           csNP01VN_Chert_3_3;
         q.ExecSQL;
-        q.SQL.Text:=csNP01VN_Chert_Index_1;
+        q.SQL.Text := csNP01VN_Chert_Index_1;
         q.ExecSQL;
-        q.SQL.Text:=csNP01VN_Chert_Index_2;
+        q.SQL.Text := csNP01VN_Chert_Index_2;
         q.ExecSQL;
       except
         Result := False;
@@ -221,7 +224,8 @@ begin
   end;
 end;
 
-function DeleteDocFromArhiv(const aDocName, aArhivPath, aTaskNumb: string):
+function DeleteDocFromArhiv(const aDocName, aDocNumDate, aArhivPath, aTaskNumb:
+  string):
   Boolean;
 var
   aqyr1, aqyr2, aqyr3: TQuery;
@@ -230,7 +234,8 @@ begin
   //  aqyr1.DatabaseName := GetArhiveTMSPath;
   aqyr1.DatabaseName := aArhivPath;
   aqyr1.SQL.Text := 'SELECT DocID, Title FROM ''NP01VN0' + aTaskNumb +
-    '_0.DB'' WHERE Title=''' + aDocName + '''';
+    '_0.DB'' WHERE (Title=''' + aDocName + ''') AND (NameDoc=''' + aDocNumDate +
+      ''')';
   try
     aqyr1.Open;
     if aqyr1.RecordCount > 0 then
@@ -250,6 +255,12 @@ begin
           aqyr3.SQL.Text := 'DELETE FROM ''NP01VN0' + aTaskNumb +
             '_2.DB'' WHERE TableID=' + aqyr2.fieldbyname('TableID').AsString;
           aqyr3.ExecSQL;
+          if aTaskNumb = '2' then
+          begin
+            aqyr3.SQL.Text := 'DELETE FROM ''NP01VN02_3.DB'' WHERE TableID=' +
+              aqyr2.fieldbyname('TableID').AsString;
+            aqyr3.ExecSQL;
+          end;
           aqyr2.Next;
         end;
         aqyr3.SQL.Text := 'DELETE FROM ''NP01VN0' + aTaskNumb +
