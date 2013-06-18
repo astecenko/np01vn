@@ -78,6 +78,8 @@ var
   sBD06UL, sNS03, sNS02NCH, sSM50: string;
   isTest, isChangeOpt: Boolean;
   UsrAcs: TNP01VNAccess;
+  ExcelColumnWidth: array[1..12] of real;
+  ExcelColumnHAlign: array[1..12] of integer;
 
 procedure FormBorderRange(Forma: TForm; const WidthBorder, HeightBorder:
   Integer);
@@ -85,7 +87,7 @@ procedure FormBorderRange(Forma: TForm; const WidthBorder, HeightBorder:
 implementation
 
 uses Index, ASU_DBF, KoaUtils, DateUtils, Constants, Param, ShellAPI, SAVLib,
-  Ost, sevenzip;
+  Ost, sevenzip, jvspin;
 
 {$R *.dfm}
 
@@ -337,6 +339,7 @@ var
   IniFilePath, SM07PathLoc, SM07PathNet, mypath: string;
   SeiName, NetFileDir, s: string;
   aDirExst: Boolean;
+  i: integer;
 begin
   CurYear := YearOf(Date);
   mypath := ExtractFilePath(Application.ExeName);
@@ -419,6 +422,13 @@ begin
       JournalDir := Ini.ReadString(csIniLocation, 'journaldir', StartDir +
         csDataPath);
       LogDir := Ini.ReadString(csIniLocation, csIniLogDir, csIniLogDirDef);
+      for i := 1 to 12 do
+      begin
+        ExcelColumnWidth[i] := ini.ReadFloat(csIniSheet, 'colwidth' +
+          inttostr(i), 0.0);
+        ExcelColumnHAlign[i] := ini.ReadInteger(csIniSheet, 'colhalign' +
+          inttostr(i), 0);
+      end;
       if FileExists(mypath + 'np01vn.txt') = true then
       begin
         mmo1.Visible := True;
@@ -551,6 +561,8 @@ begin
 end;
 
 procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
+var
+  i: integer;
 begin
   if isChangeOpt then
   begin
@@ -587,6 +599,12 @@ begin
     Ini.WriteString(csIniTemplates, 'dest_name', sDocHead_2);
     Ini.WriteString(csIniTemplates, 'sign_pos', sDocHead_3);
     Ini.WriteString(csIniTemplates, 'sign_name', sDocHead_4);
+    for i := 1 to 12 do
+    begin
+      ini.WriteFloat(csIniSheet, 'colwidth' + inttostr(i), ExcelColumnWidth[i]);
+      ini.WriteInteger(csIniSheet, 'colhalign' + inttostr(i),
+        ExcelColumnHAlign[i]);
+    end;
     if mmo1.Lines.Count > 0 then
       Ini.WriteString('update', 'firstline', mmo1.Lines[0]);
     Ini.UpdateFile;
@@ -648,6 +666,13 @@ begin
   FmParam.edtDolgnostPodpis.Text := sDocHead_3;
   FmParam.chkTest.Checked := isTest;
   FmParam.edtFIOPodpis.Text := sDocHead_4;
+  for i := 1 to 12 do
+  begin
+    (FmParam.FindComponent('jvspined' + inttostr(i)) as TJvSpinEdit).Value :=
+      ExcelColumnWidth[i];
+    (FmParam.FindComponent('cbbHAlign' + inttostr(i)) as TComboBox).ItemIndex :=
+      ExcelColumnHAlign[i];
+  end;
   FmParam.ShowModal();
   FreeAndNil(FmParam);
 end;

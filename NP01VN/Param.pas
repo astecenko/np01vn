@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Main, StdCtrls, Buttons, Spin, Mask, ComCtrls, Grids;
+  Dialogs, Main, StdCtrls, Buttons, Spin, Mask, ComCtrls, Grids, JvExMask,
+  JvSpin;
 
 type
   TFmParam = class(TForm)
@@ -53,11 +54,55 @@ type
     strngrd1: TStringGrid;
     btnSaveTemplate: TBitBtn;
     lbl14: TLabel;
+    ts5: TTabSheet;
+    lbl17: TLabel;
+    jvspined1: TJvSpinEdit;
+    jvspined2: TJvSpinEdit;
+    jvspined3: TJvSpinEdit;
+    jvspined4: TJvSpinEdit;
+    jvspined5: TJvSpinEdit;
+    jvspined6: TJvSpinEdit;
+    jvspined7: TJvSpinEdit;
+    jvspined8: TJvSpinEdit;
+    jvspined9: TJvSpinEdit;
+    jvspined10: TJvSpinEdit;
+    jvspined11: TJvSpinEdit;
+    lbl18: TLabel;
+    lbl19: TLabel;
+    lbl20: TLabel;
+    lbl21: TLabel;
+    lbl22: TLabel;
+    lbl23: TLabel;
+    lbl24: TLabel;
+    lbl25: TLabel;
+    lbl26: TLabel;
+    lbl27: TLabel;
+    lbl28: TLabel;
+    lbl29: TLabel;
+    jvspined12: TJvSpinEdit;
+    cbbHAlign1: TComboBox;
+    cbbHAlign2: TComboBox;
+    cbbHAlign3: TComboBox;
+    cbbHAlign4: TComboBox;
+    cbbHAlign5: TComboBox;
+    cbbHAlign6: TComboBox;
+    cbbHAlign7: TComboBox;
+    cbbHAlign8: TComboBox;
+    cbbHAlign9: TComboBox;
+    cbbHAlign10: TComboBox;
+    cbbHAlign11: TComboBox;
+    cbbHAlign12: TComboBox;
+    lbl15: TLabel;
     procedure btn1Click(Sender: TObject);
     procedure chkExchenPrimechClick(Sender: TObject);
     procedure chkExchenTitleClick(Sender: TObject);
     procedure chkAutoSaveClick(Sender: TObject);
     procedure btnSaveTemplateClick(Sender: TObject);
+    procedure ts5MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure lbl18MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure lbl18MouseLeave(Sender: TObject);
   private
     { Private declarations }
   public
@@ -72,6 +117,8 @@ implementation
 {$R *.dfm}
 
 procedure TFmParam.btn1Click(Sender: TObject);
+var
+  i:integer;
 begin
   FontSize := se1.Value;
   ChertFontSize := se2.Value;
@@ -100,6 +147,11 @@ begin
   iAutoSaveSec:=seAutoSave.Value;
   UsrAcs.Division := se3.Value;
   ExtApplication := edt3.Text;
+  for i := 1 to 12 do
+  begin
+    ExcelColumnWidth[i] :=(Self.FindComponent('jvspined' + inttostr(i)) as TJvSpinEdit).Value;
+    ExcelColumnHAlign[i]:=(Self.FindComponent('cbbHAlign' + inttostr(i)) as TComboBox).ItemIndex;
+  end;
   if ExtApplication = '' then
     Main.Form1.btnRun.Visible := False
   else
@@ -132,6 +184,23 @@ TemplateList.Clear;
 for i:=0 to 7 do
   TemplateList.Add(strngrd1.Cells[1,i]);
 TemplateList.SaveToFile(LocalStorage + 'NP01VN-01.txt');
+end;
+
+procedure TFmParam.ts5MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+lbl15.Caption:='';
+end;
+
+procedure TFmParam.lbl18MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+lbl15.Caption:=(Sender as TLabel).Hint;
+end;
+
+procedure TFmParam.lbl18MouseLeave(Sender: TObject);
+begin
+lbl15.Caption:='';
 end;
 
 end.

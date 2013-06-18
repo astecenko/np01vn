@@ -468,7 +468,9 @@ var
   begin
     if b_tms_0 = False then
     begin
-      if t_tms_0.Locate('Title', WorkName, [loCaseInsensitive]) = False then
+      //Locate('tableid;chert;ki;changed', VarArrayOf([aTableID, FrmChange.medtChert.Text, FrmChange.seKod.Text, 'Д']), [])
+      if t_tms_0.Locate('Title;NameDoc', VarArrayOf([WorkName, sDocName]),
+        [loCaseInsensitive]) = False then
       begin
         t_tms_0.Append;
         t_tms_0.FieldByName('Title').AsString := WorkName;
@@ -488,7 +490,8 @@ var
   begin
     if b_chert_0 = False then
     begin
-      if t_chert_0.Locate('Title', WorkName, [loCaseInsensitive]) = False then
+      if t_chert_0.Locate('Title;NameDoc', VarArrayOf([WorkName, sDocName]),
+        [loCaseInsensitive]) = False then
       begin
         t_chert_0.Append;
         t_chert_0.FieldByName('Title').AsString := WorkName;
@@ -605,8 +608,8 @@ var
 
   //добавление таблиц в NP01VN02_1.DB и NP01VN0_2.DB
   procedure AddTable2ArhChert(TableIn: TTable; const QuartIn: integer = 0);
-  var
-    month_1: Integer;
+    //  var
+    //    month_1: Integer;
 
     procedure AddTable2Arh_Sub;
     var
@@ -1257,7 +1260,7 @@ end;
 procedure TFmJournal.btn5Click(Sender: TObject);
 var
   qry2: TQuery;
-  s1, s2, s3: string;
+  s1, s2, s3, s4: string;
   i1, i2: Integer;
 begin
   tbl1.DisableControls;
@@ -1265,6 +1268,7 @@ begin
   s1 := Format(FilterQ[1], [i2]);
   s2 := '';
   s3 := tbl1.FieldByName(csField_Fname2).AsString;
+  s4 := tbl1.FieldByName(csField_Doc).AsString;
   if Trim(s3) = '' then
     ShowMessage('Ошибка! Пустая строка!')
   else
@@ -1297,8 +1301,10 @@ begin
           qry2.SQL.Text := 'Delete from "' + tbl2.TableName + '" where Id=' +
             IntToStr(i2);
           qry2.ExecSQL;
-          DeleteDocFromArhiv(s3, ArhivTMSDir, '1');
-          DeleteDocFromArhiv(s3, ArhivChertDir, '2');
+          if not DeleteDocFromArhiv(s3, s4, ArhivTMSDir, '1') then
+            showmessage('Ошибка при удалении документа из архива ТМЦ!!! Обратитесь в ОАСУП 21-66');
+          if not DeleteDocFromArhiv(s3, s4, ArhivChertDir, '2') then
+            showmessage('Ошибка при удалении документа из архива чертежей!!! Обратитесь в ОАСУП 21-66');
           fRemoveDir(NetDir + s3);
           fDeleteFile(StartDir + s3 + '\' + csJournalLock);
         finally

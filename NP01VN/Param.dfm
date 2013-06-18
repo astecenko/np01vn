@@ -4,7 +4,7 @@ object FmParam: TFmParam
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsDialog
   Caption = #1055#1072#1088#1072#1084#1077#1090#1088#1099
-  ClientHeight = 437
+  ClientHeight = 410
   ClientWidth = 383
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,12 +16,12 @@ object FmParam: TFmParam
   Position = poDesktopCenter
   DesignSize = (
     383
-    437)
+    410)
   PixelsPerInch = 96
   TextHeight = 13
   object btn1: TBitBtn
     Left = 56
-    Top = 407
+    Top = 383
     Width = 89
     Height = 25
     Anchors = [akLeft, akBottom]
@@ -45,7 +45,7 @@ object FmParam: TFmParam
   end
   object btn2: TBitBtn
     Left = 232
-    Top = 407
+    Top = 383
     Width = 89
     Height = 25
     Anchors = [akLeft, akBottom]
@@ -72,8 +72,8 @@ object FmParam: TFmParam
     Left = 0
     Top = 0
     Width = 383
-    Height = 401
-    ActivePage = ts1
+    Height = 377
+    ActivePage = ts5
     Align = alTop
     TabOrder = 2
     object ts1: TTabSheet
@@ -146,7 +146,7 @@ object FmParam: TFmParam
       end
     end
     object ts2: TTabSheet
-      Caption = 'Ms Excel'
+      Caption = 'Ms Excel 1'
       ImageIndex = 1
       object lbl1: TLabel
         Left = 8
@@ -157,7 +157,7 @@ object FmParam: TFmParam
       end
       object lbl10: TLabel
         Left = 248
-        Top = 200
+        Top = 168
         Width = 12
         Height = 13
         Caption = #1085#1072
@@ -171,28 +171,28 @@ object FmParam: TFmParam
       end
       object lbl5: TLabel
         Left = 8
-        Top = 64
+        Top = 56
         Width = 168
         Height = 13
         Caption = #1054#1088#1080#1077#1085#1090#1072#1094#1080#1103' '#1089#1090#1088#1072#1085#1080#1094#1099' '#1074' Ms Excel'
       end
       object lbl6: TLabel
         Left = 8
-        Top = 96
+        Top = 80
         Width = 152
         Height = 13
         Caption = #1060#1086#1088#1084#1072#1090' '#1089#1090#1088#1072#1085#1080#1094#1099' '#1074' Ms Excel '
       end
       object lbl9: TLabel
         Left = 248
-        Top = 168
+        Top = 144
         Width = 12
         Height = 13
         Caption = #1085#1072
       end
       object cbb1: TComboBox
         Left = 240
-        Top = 62
+        Top = 54
         Width = 97
         Height = 21
         Style = csDropDownList
@@ -206,7 +206,7 @@ object FmParam: TFmParam
       end
       object cbb2: TComboBox
         Left = 240
-        Top = 90
+        Top = 78
         Width = 97
         Height = 21
         Style = csDropDownList
@@ -218,7 +218,7 @@ object FmParam: TFmParam
       end
       object chk1: TCheckBox
         Left = 8
-        Top = 120
+        Top = 104
         Width = 313
         Height = 17
         Alignment = taLeftJustify
@@ -227,7 +227,7 @@ object FmParam: TFmParam
       end
       object chk2: TCheckBox
         Left = 8
-        Top = 232
+        Top = 188
         Width = 313
         Height = 17
         Alignment = taLeftJustify
@@ -236,7 +236,7 @@ object FmParam: TFmParam
       end
       object chkExchenPrimech: TCheckBox
         Left = 8
-        Top = 168
+        Top = 144
         Width = 233
         Height = 17
         Alignment = taLeftJustify
@@ -246,7 +246,7 @@ object FmParam: TFmParam
       end
       object chkExchenTitle: TCheckBox
         Left = 8
-        Top = 200
+        Top = 168
         Width = 233
         Height = 17
         Alignment = taLeftJustify
@@ -256,7 +256,7 @@ object FmParam: TFmParam
       end
       object chkPrintShifr: TCheckBox
         Left = 8
-        Top = 144
+        Top = 120
         Width = 313
         Height = 17
         Alignment = taLeftJustify
@@ -265,7 +265,7 @@ object FmParam: TFmParam
       end
       object edtPrimech: TEdit
         Left = 264
-        Top = 168
+        Top = 140
         Width = 57
         Height = 21
         Enabled = False
@@ -274,7 +274,7 @@ object FmParam: TFmParam
       end
       object edtTitle: TEdit
         Left = 264
-        Top = 200
+        Top = 164
         Width = 57
         Height = 21
         Enabled = False
@@ -292,7 +292,7 @@ object FmParam: TFmParam
       end
       object se2: TSpinEdit
         Left = 312
-        Top = 32
+        Top = 28
         Width = 57
         Height = 22
         MaxValue = 24
@@ -302,7 +302,7 @@ object FmParam: TFmParam
       end
       object grp1: TGroupBox
         Left = 1
-        Top = 255
+        Top = 207
         Width = 373
         Height = 114
         Caption = '  '#1064#1072#1073#1083#1086#1085#1099'  '
@@ -363,6 +363,566 @@ object FmParam: TFmParam
           Height = 21
           TabOrder = 3
         end
+      end
+    end
+    object ts5: TTabSheet
+      Caption = 'Ms Excel 2'
+      ImageIndex = 4
+      OnMouseMove = ts5MouseMove
+      object lbl17: TLabel
+        Left = 0
+        Top = 0
+        Width = 343
+        Height = 13
+        Caption = #1064#1080#1088#1080#1085#1072' '#1089#1090#1086#1083#1073#1094#1086#1074' '#1074' '#1087#1091#1085#1082#1090#1072#1093', '#1089#1090#1072#1085#1076#1072#1088#1090' + '#1080#1079#1084#1077#1085#1077#1085#1080#1077', '#1074#1099#1088#1072#1074#1085#1080#1074#1072#1085#1080#1077':'
+      end
+      object lbl18: TLabel
+        Left = 36
+        Top = 16
+        Width = 76
+        Height = 13
+        Hint = #8470#8470
+        Caption = #1057#1090#1086#1083#1073#1077#1094' A   5 +'
+        ParentShowHint = False
+        ShowHint = True
+        OnMouseMove = lbl18MouseMove
+        OnMouseLeave = lbl18MouseLeave
+      end
+      object lbl19: TLabel
+        Left = 36
+        Top = 40
+        Width = 94
+        Height = 13
+        Hint = #1095#1072#1089#1090#1100' '#1087#1086#1083#1103' '#1050#1086#1076
+        Caption = #1057#1090#1086#1083#1073#1077#1094'  B   1.55 +'
+        ParentShowHint = False
+        ShowHint = True
+        OnMouseMove = lbl18MouseMove
+        OnMouseLeave = lbl18MouseLeave
+      end
+      object lbl20: TLabel
+        Left = 36
+        Top = 64
+        Width = 88
+        Height = 13
+        Hint = #1050#1086#1076' '#1080#1079#1076#1077#1083#1080#1103
+        Caption = #1057#1090#1086#1083#1073#1077#1094' C  6.14 +'
+        ParentShowHint = False
+        ShowHint = True
+        OnMouseMove = lbl18MouseMove
+        OnMouseLeave = lbl18MouseLeave
+      end
+      object lbl21: TLabel
+        Left = 36
+        Top = 88
+        Width = 80
+        Height = 13
+        Hint = #1064#1080#1092#1088'/'#1095#1077#1088#1090#1077#1078
+        Caption = #1057#1090#1086#1083#1073#1077#1094' D  16 +'
+        ParentShowHint = False
+        ShowHint = True
+        OnMouseMove = lbl18MouseMove
+        OnMouseLeave = lbl18MouseLeave
+      end
+      object lbl22: TLabel
+        Left = 36
+        Top = 112
+        Width = 73
+        Height = 13
+        Hint = #1058#1052#1062':'#1045#1076'.'#1080#1079#1084#13#10#1063#1077#1088#1090#1077#1078':'#1050#1086#1083#1080#1095#1077#1089#1090#1074#1086
+        Caption = #1057#1090#1086#1083#1073#1077#1094' E  6 +'
+        ParentShowHint = False
+        ShowHint = True
+        OnMouseMove = lbl18MouseMove
+        OnMouseLeave = lbl18MouseLeave
+      end
+      object lbl23: TLabel
+        Left = 36
+        Top = 136
+        Width = 78
+        Height = 13
+        Hint = #1063#1077#1088#1090#1077#1078': 1 '#1084#1077#1089#13#10#1058#1052#1062' '#1082#1074#1072#1088#1090': 1 '#1084#1077#1089#13#10#1058#1052#1062' '#1084#1077#1089': '#1095#1072#1089#1090#1100' '#1084#1077#1089
+        Caption = #1057#1090#1086#1083#1073#1077#1094' F  10 +'
+        ParentShowHint = False
+        ShowHint = True
+        OnMouseMove = lbl18MouseMove
+        OnMouseLeave = lbl18MouseLeave
+      end
+      object lbl24: TLabel
+        Left = 36
+        Top = 160
+        Width = 80
+        Height = 13
+        Hint = #1063#1077#1088#1090#1077#1078': 2 '#1084#1077#1089#13#10#1058#1052#1062' '#1082#1074#1072#1088#1090': 2 '#1084#1077#1089#13#10#1058#1052#1062' '#1084#1077#1089': '#1095#1072#1089#1090#1100' '#1084#1077#1089
+        Caption = #1057#1090#1086#1083#1073#1077#1094' G  10 +'
+        ParentShowHint = False
+        ShowHint = True
+        OnMouseMove = lbl18MouseMove
+        OnMouseLeave = lbl18MouseLeave
+      end
+      object lbl25: TLabel
+        Left = 36
+        Top = 184
+        Width = 80
+        Height = 13
+        Hint = #1063#1077#1088#1090#1077#1078': 3 '#1084#1077#1089#13#10#1058#1052#1062' '#1082#1074#1072#1088#1090': 3 '#1084#1077#1089#13#10#1058#1052#1062' '#1084#1077#1089': '#1095#1072#1089#1090#1100' '#1062#1055
+        Caption = #1057#1090#1086#1083#1073#1077#1094' H  10 +'
+        ParentShowHint = False
+        ShowHint = True
+        OnMouseMove = lbl18MouseMove
+        OnMouseLeave = lbl18MouseLeave
+      end
+      object lbl26: TLabel
+        Left = 36
+        Top = 208
+        Width = 69
+        Height = 13
+        Hint = #1063#1077#1088#1090#1077#1078': '#1087#1088#1086#1087#1091#1089#1082' '#1087#1077#1088#1077#1076' '#1058#1052#13#10#1058#1052#1062' : '#1095#1072#1089#1090#1100' '#1062#1055
+        Caption = #1057#1090#1086#1083#1073#1077#1094' I  1 +'
+        ParentShowHint = False
+        ShowHint = True
+        OnMouseMove = lbl18MouseMove
+        OnMouseLeave = lbl18MouseLeave
+      end
+      object lbl27: TLabel
+        Left = 36
+        Top = 232
+        Width = 108
+        Height = 13
+        Hint = #1063#1077#1088#1090#1077#1078': '#1094#1077#1093' '#1058#1052#13#10#1058#1052#1062' : '#1089#1084#1086#1090#1088#1080#1090#1077' '#1092#1072#1081#1083' Excel'
+        Caption = #1057#1090#1086#1083#1073#1094#1099' J - W  2.29 +'
+        ParentShowHint = False
+        ShowHint = True
+        OnMouseMove = lbl18MouseMove
+        OnMouseLeave = lbl18MouseLeave
+      end
+      object lbl28: TLabel
+        Left = 36
+        Top = 256
+        Width = 79
+        Height = 13
+        Hint = #1050#1086#1084#1084#1077#1085#1090#1072#1088#1080#1081
+        Caption = #1057#1090#1086#1083#1073#1077#1094' X  25 +'
+        ParentShowHint = False
+        ShowHint = True
+        OnMouseMove = lbl18MouseMove
+        OnMouseLeave = lbl18MouseLeave
+      end
+      object lbl29: TLabel
+        Left = 36
+        Top = 280
+        Width = 79
+        Height = 13
+        Hint = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077' '#1058#1052#1062'/'#1095#1077#1088#1090#1077#1078#1072
+        Caption = #1057#1090#1086#1083#1073#1077#1094' Y  30 +'
+        ParentShowHint = False
+        ShowHint = True
+        OnMouseMove = lbl18MouseMove
+        OnMouseLeave = lbl18MouseLeave
+      end
+      object lbl15: TLabel
+        Left = 64
+        Top = 302
+        Width = 257
+        Height = 45
+        AutoSize = False
+        Caption = '.'
+      end
+      object jvspined1: TJvSpinEdit
+        Left = 152
+        Top = 16
+        Width = 73
+        Height = 21
+        Hint = #8470#8470
+        MaxValue = 100.000000000000000000
+        MinValue = -6.000000000000000000
+        ValueType = vtFloat
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 0
+      end
+      object jvspined2: TJvSpinEdit
+        Left = 152
+        Top = 40
+        Width = 73
+        Height = 21
+        Hint = #1095#1072#1089#1090#1100' '#1087#1086#1083#1103' '#1050#1086#1076
+        MaxValue = 100.000000000000000000
+        MinValue = -2.000000000000000000
+        ValueType = vtFloat
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 1
+      end
+      object jvspined3: TJvSpinEdit
+        Left = 152
+        Top = 64
+        Width = 73
+        Height = 21
+        Hint = #1050#1086#1076' '#1080#1079#1076#1077#1083#1080#1103
+        MaxValue = 100.000000000000000000
+        MinValue = -7.000000000000000000
+        ValueType = vtFloat
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 2
+      end
+      object jvspined4: TJvSpinEdit
+        Left = 152
+        Top = 88
+        Width = 73
+        Height = 21
+        Hint = #1064#1080#1092#1088'/'#1095#1077#1088#1090#1077#1078
+        MaxValue = 100.000000000000000000
+        MinValue = -16.000000000000000000
+        ValueType = vtFloat
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 3
+      end
+      object jvspined5: TJvSpinEdit
+        Left = 152
+        Top = 112
+        Width = 73
+        Height = 21
+        Hint = #1058#1052#1062':'#1045#1076'.'#1080#1079#1084#13#10#1063#1077#1088#1090#1077#1078':'#1050#1086#1083#1080#1095#1077#1089#1090#1074#1086
+        MaxValue = 100.000000000000000000
+        MinValue = -7.000000000000000000
+        ValueType = vtFloat
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 4
+      end
+      object jvspined6: TJvSpinEdit
+        Left = 152
+        Top = 136
+        Width = 73
+        Height = 21
+        Hint = #1063#1077#1088#1090#1077#1078': 1 '#1084#1077#1089#13#10#1058#1052#1062' '#1082#1074#1072#1088#1090': 1 '#1084#1077#1089#13#10#1058#1052#1062' '#1084#1077#1089': '#1095#1072#1089#1090#1100' '#1084#1077#1089
+        MaxValue = 100.000000000000000000
+        MinValue = -11.000000000000000000
+        ValueType = vtFloat
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 5
+      end
+      object jvspined7: TJvSpinEdit
+        Left = 152
+        Top = 160
+        Width = 73
+        Height = 21
+        Hint = #1063#1077#1088#1090#1077#1078': 2 '#1084#1077#1089#13#10#1058#1052#1062' '#1082#1074#1072#1088#1090': 2 '#1084#1077#1089#13#10#1058#1052#1062' '#1084#1077#1089': '#1095#1072#1089#1090#1100' '#1084#1077#1089
+        MaxValue = 100.000000000000000000
+        MinValue = -11.000000000000000000
+        ValueType = vtFloat
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 6
+      end
+      object jvspined8: TJvSpinEdit
+        Left = 152
+        Top = 184
+        Width = 73
+        Height = 21
+        Hint = #1063#1077#1088#1090#1077#1078': 3 '#1084#1077#1089#13#10#1058#1052#1062' '#1082#1074#1072#1088#1090': 3 '#1084#1077#1089#13#10#1058#1052#1062' '#1084#1077#1089': '#1095#1072#1089#1090#1100' '#1062#1055
+        MaxValue = 100.000000000000000000
+        MinValue = -11.000000000000000000
+        ValueType = vtFloat
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 7
+      end
+      object jvspined9: TJvSpinEdit
+        Left = 152
+        Top = 208
+        Width = 73
+        Height = 21
+        Hint = #1063#1077#1088#1090#1077#1078': '#1087#1088#1086#1087#1091#1089#1082' '#1087#1077#1088#1077#1076' '#1058#1052#13#10#1058#1052#1062' : '#1095#1072#1089#1090#1100' '#1062#1055
+        MaxValue = 100.000000000000000000
+        MinValue = -2.000000000000000000
+        ValueType = vtFloat
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 8
+      end
+      object jvspined10: TJvSpinEdit
+        Left = 152
+        Top = 232
+        Width = 73
+        Height = 21
+        Hint = #1063#1077#1088#1090#1077#1078': '#1094#1077#1093' '#1058#1052#13#10#1058#1052#1062' : '#1089#1084#1086#1090#1088#1080#1090#1077' '#1092#1072#1081#1083' Excel'
+        MaxValue = 100.000000000000000000
+        MinValue = -3.000000000000000000
+        ValueType = vtFloat
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 9
+      end
+      object jvspined11: TJvSpinEdit
+        Left = 152
+        Top = 256
+        Width = 73
+        Height = 21
+        Hint = #1050#1086#1084#1084#1077#1085#1090#1072#1088#1080#1081
+        MaxValue = 200.000000000000000000
+        MinValue = -31.000000000000000000
+        ValueType = vtFloat
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 10
+      end
+      object jvspined12: TJvSpinEdit
+        Left = 152
+        Top = 280
+        Width = 73
+        Height = 21
+        Hint = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077' '#1058#1052#1062'/'#1095#1077#1088#1090#1077#1078#1072
+        MaxValue = 200.000000000000000000
+        MinValue = -31.000000000000000000
+        ValueType = vtFloat
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 11
+      end
+      object cbbHAlign1: TComboBox
+        Left = 232
+        Top = 16
+        Width = 105
+        Height = 21
+        Hint = #8470#8470
+        Style = csDropDownList
+        ItemHeight = 13
+        ItemIndex = 0
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 12
+        Text = #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
+        Items.Strings = (
+          #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
+          #1055#1086' '#1096#1080#1088#1080#1085#1077
+          #1055#1086' '#1083#1077#1074#1086#1084#1091' '#1082#1088#1072#1102
+          #1055#1086' '#1094#1077#1085#1090#1088#1091
+          #1055#1086' '#1087#1088#1072#1074#1086#1084#1091' '#1082#1088#1072#1102)
+      end
+      object cbbHAlign2: TComboBox
+        Left = 232
+        Top = 40
+        Width = 105
+        Height = 21
+        Hint = #1095#1072#1089#1090#1100' '#1087#1086#1083#1103' '#1050#1086#1076
+        Style = csDropDownList
+        ItemHeight = 13
+        ItemIndex = 0
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 13
+        Text = #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
+        Items.Strings = (
+          #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
+          #1055#1086' '#1096#1080#1088#1080#1085#1077
+          #1055#1086' '#1083#1077#1074#1086#1084#1091' '#1082#1088#1072#1102
+          #1055#1086' '#1094#1077#1085#1090#1088#1091
+          #1055#1086' '#1087#1088#1072#1074#1086#1084#1091' '#1082#1088#1072#1102)
+      end
+      object cbbHAlign3: TComboBox
+        Left = 232
+        Top = 64
+        Width = 105
+        Height = 21
+        Hint = #1050#1086#1076' '#1080#1079#1076#1077#1083#1080#1103
+        Style = csDropDownList
+        ItemHeight = 13
+        ItemIndex = 0
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 14
+        Text = #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
+        Items.Strings = (
+          #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
+          #1055#1086' '#1096#1080#1088#1080#1085#1077
+          #1055#1086' '#1083#1077#1074#1086#1084#1091' '#1082#1088#1072#1102
+          #1055#1086' '#1094#1077#1085#1090#1088#1091
+          #1055#1086' '#1087#1088#1072#1074#1086#1084#1091' '#1082#1088#1072#1102)
+      end
+      object cbbHAlign4: TComboBox
+        Left = 232
+        Top = 88
+        Width = 105
+        Height = 21
+        Hint = #1064#1080#1092#1088'/'#1095#1077#1088#1090#1077#1078
+        Style = csDropDownList
+        ItemHeight = 13
+        ItemIndex = 0
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 15
+        Text = #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
+        Items.Strings = (
+          #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
+          #1055#1086' '#1096#1080#1088#1080#1085#1077
+          #1055#1086' '#1083#1077#1074#1086#1084#1091' '#1082#1088#1072#1102
+          #1055#1086' '#1094#1077#1085#1090#1088#1091
+          #1055#1086' '#1087#1088#1072#1074#1086#1084#1091' '#1082#1088#1072#1102)
+      end
+      object cbbHAlign5: TComboBox
+        Left = 232
+        Top = 112
+        Width = 105
+        Height = 21
+        Hint = #1058#1052#1062':'#1045#1076'.'#1080#1079#1084#13#10#1063#1077#1088#1090#1077#1078':'#1050#1086#1083#1080#1095#1077#1089#1090#1074#1086
+        Style = csDropDownList
+        ItemHeight = 13
+        ItemIndex = 0
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 16
+        Text = #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
+        Items.Strings = (
+          #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
+          #1055#1086' '#1096#1080#1088#1080#1085#1077
+          #1055#1086' '#1083#1077#1074#1086#1084#1091' '#1082#1088#1072#1102
+          #1055#1086' '#1094#1077#1085#1090#1088#1091
+          #1055#1086' '#1087#1088#1072#1074#1086#1084#1091' '#1082#1088#1072#1102)
+      end
+      object cbbHAlign6: TComboBox
+        Left = 232
+        Top = 136
+        Width = 105
+        Height = 21
+        Hint = #1063#1077#1088#1090#1077#1078': 1 '#1084#1077#1089#13#10#1058#1052#1062' '#1082#1074#1072#1088#1090': 1 '#1084#1077#1089#13#10#1058#1052#1062' '#1084#1077#1089': '#1095#1072#1089#1090#1100' '#1084#1077#1089
+        Style = csDropDownList
+        ItemHeight = 13
+        ItemIndex = 0
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 17
+        Text = #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
+        Items.Strings = (
+          #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
+          #1055#1086' '#1096#1080#1088#1080#1085#1077
+          #1055#1086' '#1083#1077#1074#1086#1084#1091' '#1082#1088#1072#1102
+          #1055#1086' '#1094#1077#1085#1090#1088#1091
+          #1055#1086' '#1087#1088#1072#1074#1086#1084#1091' '#1082#1088#1072#1102)
+      end
+      object cbbHAlign7: TComboBox
+        Left = 232
+        Top = 160
+        Width = 105
+        Height = 21
+        Hint = #1063#1077#1088#1090#1077#1078': 2 '#1084#1077#1089#13#10#1058#1052#1062' '#1082#1074#1072#1088#1090': 2 '#1084#1077#1089#13#10#1058#1052#1062' '#1084#1077#1089': '#1095#1072#1089#1090#1100' '#1084#1077#1089
+        Style = csDropDownList
+        ItemHeight = 13
+        ItemIndex = 0
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 18
+        Text = #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
+        Items.Strings = (
+          #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
+          #1055#1086' '#1096#1080#1088#1080#1085#1077
+          #1055#1086' '#1083#1077#1074#1086#1084#1091' '#1082#1088#1072#1102
+          #1055#1086' '#1094#1077#1085#1090#1088#1091
+          #1055#1086' '#1087#1088#1072#1074#1086#1084#1091' '#1082#1088#1072#1102)
+      end
+      object cbbHAlign8: TComboBox
+        Left = 232
+        Top = 184
+        Width = 105
+        Height = 21
+        Hint = #1063#1077#1088#1090#1077#1078': 3 '#1084#1077#1089#13#10#1058#1052#1062' '#1082#1074#1072#1088#1090': 3 '#1084#1077#1089#13#10#1058#1052#1062' '#1084#1077#1089': '#1095#1072#1089#1090#1100' '#1062#1055
+        Style = csDropDownList
+        ItemHeight = 13
+        ItemIndex = 0
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 19
+        Text = #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
+        Items.Strings = (
+          #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
+          #1055#1086' '#1096#1080#1088#1080#1085#1077
+          #1055#1086' '#1083#1077#1074#1086#1084#1091' '#1082#1088#1072#1102
+          #1055#1086' '#1094#1077#1085#1090#1088#1091
+          #1055#1086' '#1087#1088#1072#1074#1086#1084#1091' '#1082#1088#1072#1102)
+      end
+      object cbbHAlign9: TComboBox
+        Left = 232
+        Top = 208
+        Width = 105
+        Height = 21
+        Hint = #1063#1077#1088#1090#1077#1078': '#1087#1088#1086#1087#1091#1089#1082' '#1087#1077#1088#1077#1076' '#1058#1052#13#10#1058#1052#1062' : '#1095#1072#1089#1090#1100' '#1062#1055
+        Style = csDropDownList
+        ItemHeight = 13
+        ItemIndex = 0
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 20
+        Text = #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
+        Items.Strings = (
+          #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
+          #1055#1086' '#1096#1080#1088#1080#1085#1077
+          #1055#1086' '#1083#1077#1074#1086#1084#1091' '#1082#1088#1072#1102
+          #1055#1086' '#1094#1077#1085#1090#1088#1091
+          #1055#1086' '#1087#1088#1072#1074#1086#1084#1091' '#1082#1088#1072#1102)
+      end
+      object cbbHAlign10: TComboBox
+        Left = 232
+        Top = 232
+        Width = 105
+        Height = 21
+        Hint = #1063#1077#1088#1090#1077#1078': '#1094#1077#1093' '#1058#1052#13#10#1058#1052#1062' : '#1089#1084#1086#1090#1088#1080#1090#1077' '#1092#1072#1081#1083' Excel'
+        Style = csDropDownList
+        ItemHeight = 13
+        ItemIndex = 0
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 21
+        Text = #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
+        Items.Strings = (
+          #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
+          #1055#1086' '#1096#1080#1088#1080#1085#1077
+          #1055#1086' '#1083#1077#1074#1086#1084#1091' '#1082#1088#1072#1102
+          #1055#1086' '#1094#1077#1085#1090#1088#1091
+          #1055#1086' '#1087#1088#1072#1074#1086#1084#1091' '#1082#1088#1072#1102)
+      end
+      object cbbHAlign11: TComboBox
+        Left = 232
+        Top = 256
+        Width = 105
+        Height = 21
+        Hint = #1050#1086#1084#1084#1077#1085#1090#1072#1088#1080#1081
+        Style = csDropDownList
+        ItemHeight = 13
+        ItemIndex = 0
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 22
+        Text = #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
+        Items.Strings = (
+          #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
+          #1055#1086' '#1096#1080#1088#1080#1085#1077
+          #1055#1086' '#1083#1077#1074#1086#1084#1091' '#1082#1088#1072#1102
+          #1055#1086' '#1094#1077#1085#1090#1088#1091
+          #1055#1086' '#1087#1088#1072#1074#1086#1084#1091' '#1082#1088#1072#1102)
+      end
+      object cbbHAlign12: TComboBox
+        Left = 232
+        Top = 280
+        Width = 105
+        Height = 21
+        Hint = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077' '#1058#1052#1062'/'#1095#1077#1088#1090#1077#1078#1072
+        Style = csDropDownList
+        ItemHeight = 13
+        ItemIndex = 0
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 23
+        Text = #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
+        Items.Strings = (
+          #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
+          #1055#1086' '#1096#1080#1088#1080#1085#1077
+          #1055#1086' '#1083#1077#1074#1086#1084#1091' '#1082#1088#1072#1102
+          #1055#1086' '#1094#1077#1085#1090#1088#1091
+          #1055#1086' '#1087#1088#1072#1074#1086#1084#1091' '#1082#1088#1072#1102)
       end
     end
     object ts4: TTabSheet

@@ -1475,8 +1475,7 @@ var
             qryChangesUpd2.ParamByName('chert').AsString :=
               FrmChange.medtChert.Text;
             qryChangesUpd2.Prepare;
-            showmessage(qryChangesUpd2.Params.ParseSQL(qryChangesUpd2.Text,
-              False));
+            //showmessage(qryChangesUpd2.Params.ParseSQL(qryChangesUpd2.Text,  False));
             qryChangesUpd2.ExecSQL;
             dbgrdh1.DataSource.DataSet.Close;
             dbgrdh1.DataSource.DataSet.Open;
