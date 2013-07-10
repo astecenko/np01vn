@@ -115,7 +115,7 @@ AutoIncBuild=0
 MajorVer=2
 MinorVer=1
 Release=3
-Build=2
+Build=4
 Debug=0
 PreRelease=0
 Special=0
@@ -126,7 +126,7 @@ CodePage=1251
 [Version Info Keys]
 CompanyName=ннн "ой "мщбг" нюясо алн
 FileDescription=
-FileVersion=2.1.3.2
+FileVersion=2.1.3.4
 InternalName=
 LegalCopyright=(c) NEVZ
 LegalTrademarks=

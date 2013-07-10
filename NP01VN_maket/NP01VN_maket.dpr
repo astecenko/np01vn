@@ -22,7 +22,8 @@ uses
   ClipB in 'ClipB.pas',
   Constants in 'Constants.pas',
   Ost in 'Ost.pas' {frm42},
-  Param in 'Param.pas' {FmParam};
+  Param in 'Param.pas' {FmParam},
+  Unit12 in 'Unit12.pas' {FormNP01};
 
 //  Param in 'Param.pas' {FmParam};
 
