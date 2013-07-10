@@ -83,7 +83,7 @@ var
   znach_pmak, znach_ki, znach_pmod: string;
 implementation
 
-uses Unit1, Unit3, Unit4, Unit2, Unit6, Unit7, StrUtils, Unit8, Journal,
+uses Unit1, Unit3, Unit4, Unit2, Unit6, Unit7, StrUtils, Unit8, Journal, unit12,
   KoaUtils, Constants;
 
 {$R *.dfm}
@@ -150,6 +150,9 @@ var
   str01: TStringList;
   FilterOld: Boolean;
   RecNoOld: Cardinal;
+  FormNP01: TFormNP01;
+
+
 
   function CreateDPL_4_NP01(aTable: TTable): boolean;
   var
@@ -452,6 +455,13 @@ begin
     Form5.Close;
     ShellExecute(Handle, nil, PChar(savedir + '\SPRAVKA.txt'), nil, nil,
       SW_RESTORE);
+    aNP01DPL.First;
+    FormNP01:=TFormNP01.Create(Self);
+    FormNP01.ds1.DataSet:=aNP01DPL;
+    FormNP01.Caption:=aNP01DPL.TableName+' : '+inttostr(aNP01DPL.RecordCount);
+    FormNP01.lblFullPath.Caption:=IncludeTrailingPathDelimiter(aNP01DPL.DatabaseName)+aNP01DPL.TableName;
+    FormNP01.ShowModal;
+    FreeAndNil(FormNP01);
     aNP01DPL.Close;
     FreeAndNil(aNP01DPL);
   end;
