@@ -1033,12 +1033,14 @@ begin
         FieldByName('chert').AsString := Rows.DBRecAr[i].Chert;
         for j := 1 to 3 do
         begin
-          if (Rows.DBRecAr[i].Kol[j] = 0) then
+          if (Rows.DBRecAr[i].Kol[j] = 0) or (DBGrid1.Columns[3 + 2 *
+            j].ReadOnly) then
             FieldByName('kol' + IntToStr(j)).Value := Null
           else
             FieldByName('kol' + IntToStr(j)).AsInteger :=
               Rows.DBRecAr[i].Kol[j];
-          if (Rows.DBRecAr[i].Kol_v[j] = 0) then
+          if (Rows.DBRecAr[i].Kol_v[j] = 0) or (DBGrid1.Columns[3 + 2 *
+            j].ReadOnly) then
             FieldByName('kol' + IntToStr(j) + '_v').Value := Null
           else
             FieldByName('kol' + IntToStr(j) + '_v').AsInteger :=
@@ -1311,6 +1313,8 @@ procedure TFormEdit.btn4Click(Sender: TObject);
 var
   IgnList, ImpList: TStringList;
   TestList: TList;
+  i: integer;
+  s: string;
 begin
   TestList := TList.Create;
   TestList.Add(TTestElement.Create('Chert', CheckChert));
@@ -1318,6 +1322,13 @@ begin
   IgnList := TStringList.Create;
   ImpList := TStringList.Create;
   ImpList.Add('Chert');
+  for i := 1 to 3 do
+    if DBGrid1.Columns[3 + 2 * i].ReadOnly then
+    begin
+      s := 'Kol' + inttostr(i);
+      IgnList.Add(s);
+      IgnList.Add(s + '_v');
+    end;
   PasteMSO.Indication := IntToStr(NewString.Kod);
   PasteMSO.FillCheckList(Table1, ImpList, IgnList);
   FreeAndNil(IgnList);
