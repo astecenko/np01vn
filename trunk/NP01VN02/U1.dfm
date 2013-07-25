@@ -1,6 +1,6 @@
 object NP01VN02Form1: TNP01VN02Form1
-  Left = 13
-  Top = 89
+  Left = 211
+  Top = 102
   AutoScroll = False
   ClientHeight = 473
   ClientWidth = 782
@@ -1198,6 +1198,7 @@ object NP01VN02Form1: TNP01VN02Form1
     Top = 164
   end
   object qry1: TQuery
+    AfterScroll = qry1AfterScroll
     DatabaseName = 'd:\ProjectsD\NP01VN\NP01VN02\Base_07_05_2013\'
     OnFilterRecord = qry1FilterRecord
     SQL.Strings = (

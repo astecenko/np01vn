@@ -226,6 +226,7 @@ type
     procedure dbgrdh1GetCellParams(Sender: TObject; Column: TColumnEh;
       AFont: TFont; var Background: TColor; State: TGridDrawState);
     procedure FormDestroy(Sender: TObject);
+    procedure qry1AfterScroll(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -255,6 +256,7 @@ var
     //параметры командной строки
   parExt, parTest: Boolean;
   parDir, parKi, parChert, parTM, parPodrazd: string;
+  Kostil_1:boolean;
 
 implementation
 uses ASU_DBF, KoaUtils, SAVLib, SAVLib_DBF, SAVLib_DB, IniFiles, VKDBFNTX,
@@ -355,6 +357,7 @@ var
   end;
 
 begin
+  Kostil_1:=False;
   Cmd := TCmdLine.Create;
   Cmd.AddBoolKey('E', False, 'EXT');
   Cmd.AddStrKey('T', '', 'TM');
@@ -677,7 +680,7 @@ begin
     lbl1.Caption :=
       GetChertTitle(dbgrdh1.DataSource.DataSet.FieldByName('Chert').AsString);
   NP01VN02Form1.SetRecCountInStatus;
-  if dbgrdh1.DataSource.DataSet.FieldByName('Quart') <> nil then
+{  if dbgrdh1.DataSource.DataSet.FieldByName('Quart') <> nil then
   begin
     dbgrdh1.Columns[4].Title.Caption := '1 мес€ц ' +
       GetMonthNameFromQuartMonth(dbgrdh1.DataSource.DataSet.FieldByName('Quart').AsInteger, 1);
@@ -686,6 +689,11 @@ begin
     dbgrdh1.Columns[6].Title.Caption := '3 мес€ц ' +
       GetMonthNameFromQuartMonth(dbgrdh1.DataSource.DataSet.FieldByName('Quart').AsInteger, 3);
   end;
+    Delay(3);
+  dbgrdh1.Repaint;
+  Self.Repaint;
+  Delay(2);
+  Application.ProcessMessages; }
   if tblChanges.Active then
   begin
     if dbgrdh1.DataSource.DataSet.FieldByName('changed').AsString <> '' then
@@ -1536,8 +1544,9 @@ procedure TNP01VN02Form1.dbgrdh1GetCellParams(Sender: TObject;
   Column: TColumnEh; AFont: TFont; var Background: TColor;
   State: TGridDrawState);
 begin
-  if (dbgrdh1.DataSource.DataSet.Active) and
-    (dbgrdh1.DataSource.DataSet.FieldByName('changed').AsString <> '') then
+  if dbgrdh1.DataSource.DataSet.Active then
+  begin
+    if dbgrdh1.DataSource.DataSet.FieldByName('changed').AsString <> '' then
     case dbgrdh1.DataSource.DataSet.FieldByName('changed').AsString[1] of
       '»': //изменено
         Background := txtChanged.Color;
@@ -1549,14 +1558,31 @@ begin
       'ƒ': //добавлено
         Background := txtAdded.Color;
     end;
+   end;
 end;
 
 procedure TNP01VN02Form1.FormDestroy(Sender: TObject);
 begin
- tblChanges.Close;
- qry1.Close;
- if PrivDir <> '' then
+  tblChanges.Close;
+  qry1.Close;
+  if PrivDir <> '' then
     RemoveDir(PrivDir);
+end;
+
+procedure TNP01VN02Form1.qry1AfterScroll(DataSet: TDataSet);
+begin
+  if DataSet.FieldByName('Quart') <> nil then
+  begin
+    dbgrdh1.Columns[4].Title.Caption := '1 мес€ц ' +
+      GetMonthNameFromQuartMonth(dbgrdh1.DataSource.DataSet.FieldByName('Quart').AsInteger, 1);
+    dbgrdh1.Columns[5].Title.Caption := '2 мес€ц ' +
+      GetMonthNameFromQuartMonth(dbgrdh1.DataSource.DataSet.FieldByName('Quart').AsInteger, 2);
+    dbgrdh1.Columns[6].Title.Caption := '3 мес€ц ' +
+      GetMonthNameFromQuartMonth(dbgrdh1.DataSource.DataSet.FieldByName('Quart').AsInteger, 3);
+  end;
+  dbgrdh1.Width:=dbgrdh1.Width+1;
+  Delay(1);
+  Application.ProcessMessages;
 end;
 
 end.

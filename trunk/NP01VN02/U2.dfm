@@ -41,7 +41,7 @@ object NP01VN02Form2: TNP01VN02Form2
     object lbl1: TLabel
       Left = 0
       Top = 2
-      Width = 425
+      Width = 357
       Height = 13
       Align = alCustom
       Alignment = taCenter
@@ -209,6 +209,15 @@ object NP01VN02Form2: TNP01VN02Form2
       TitleFont.Style = []
       OnDblClick = dbgrdh3DblClick
       Columns = <
+        item
+          Alignment = taCenter
+          EditButtons = <>
+          FieldName = 'Kod'
+          Footers = <>
+          Title.Alignment = taCenter
+          Title.Caption = #1050#1048
+          Width = 36
+        end
         item
           Alignment = taCenter
           EditButtons = <>
