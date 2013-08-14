@@ -115,7 +115,7 @@ AutoIncBuild=1
 MajorVer=1
 MinorVer=0
 Release=0
-Build=26
+Build=28
 Debug=0
 PreRelease=0
 Special=0
@@ -126,7 +126,7 @@ CodePage=1251
 [Version Info Keys]
 CompanyName=БМО ОАСУП НЭВЗ
 FileDescription=Просмотр архива ТМЦ (BDE)
-FileVersion=1.0.0.26
+FileVersion=1.0.0.28
 InternalName=
 LegalCopyright=Стеценко А.В.
 LegalTrademarks=
@@ -138,6 +138,8 @@ Comments=
 c:\program files\borland\delphi7\Bin\dclIntraweb_50_70.bpl=Intraweb 5.0 Design Package for Delphi 7
 c:\program files\borland\delphi7\bin\dclRave70.bpl=Rave Reports BE 5.0 Package
 C:\Program Files\Borland\Delphi7\Bin\dclqrt70.bpl=QuickReport Components
+D:\Components\NativeExcel\DELPHI7\NativeExcelD7.bpl=(untitled)
+D:\Components\DevExpress VCL\Library\Delphi7\dxSkinOffice2010BlackD7.bpl=ExpressSkins - Office2010Black Skin by Developer Express Inc.
 D:\Components\DevExpress VCL\Library\Delphi7\dcldxCoreD7.bpl=ExpressCoreLibrary by Developer Express Inc.
 D:\Components\DevExpress VCL\Library\Delphi7\dclcxLibraryD7.bpl=Express Cross Platform Library by Developer Express Inc.
 D:\Components\DevExpress VCL\Library\Delphi7\dclcxEditorsD7.bpl=ExpressEditors Library by Developer Express Inc.
@@ -243,7 +245,6 @@ D:\Components\DevExpress VCL\Library\Delphi7\dxSkinSharpPlusD7.bpl=ExpressSkins 
 D:\Components\DevExpress VCL\Library\Delphi7\dxSkinTheAsphaltWorldD7.bpl=ExpressSkins - TheAsphaltWorld Skin by Developer Express Inc.
 D:\Components\DevExpress VCL\Library\Delphi7\dxSkinVS2010D7.bpl=ExpressSkins - VS2010 Skin by Developer Express Inc.
 D:\Components\DevExpress VCL\Library\Delphi7\dxSkinWhiteprintD7.bpl=ExpressSkins - Whiteprint Skin by Developer Express Inc.
-D:\Components\NativeExcel\DELPHI7\NativeExcelD7.bpl=(untitled)
 [HistoryLists\hlUnitAliases]
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
