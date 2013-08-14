@@ -1,8 +1,9 @@
 object NP01VN01Form1: TNP01VN01Form1
   Left = 253
   Top = 163
-  Width = 780
-  Height = 400
+  AutoScroll = False
+  ClientHeight = 373
+  ClientWidth = 755
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,7 +20,7 @@ object NP01VN01Form1: TNP01VN01Form1
   object spl1: TSplitter
     Left = 0
     Top = 343
-    Width = 772
+    Width = 755
     Height = 5
     Cursor = crVSplit
     Align = alBottom
@@ -27,7 +28,7 @@ object NP01VN01Form1: TNP01VN01Form1
   object spl2: TSplitter
     Left = 0
     Top = 65
-    Width = 772
+    Width = 755
     Height = 3
     Cursor = crVSplit
     Align = alTop
@@ -35,7 +36,7 @@ object NP01VN01Form1: TNP01VN01Form1
   object pnl1: TPanel
     Left = 0
     Top = 348
-    Width = 772
+    Width = 755
     Height = 25
     Align = alBottom
     BevelOuter = bvLowered
@@ -44,7 +45,7 @@ object NP01VN01Form1: TNP01VN01Form1
     TabOrder = 0
     OnCanResize = pnl1CanResize
     DesignSize = (
-      772
+      755
       25)
     object lbl1: TLabel
       Left = 8
@@ -70,7 +71,7 @@ object NP01VN01Form1: TNP01VN01Form1
       Caption = #1044#1086#1082#1091#1084#1077#1085#1090':'
     end
     object lbl5: TLabel
-      Left = 539
+      Left = 522
       Top = 112
       Width = 111
       Height = 13
@@ -78,7 +79,7 @@ object NP01VN01Form1: TNP01VN01Form1
       Caption = #1054#1090#1087#1088#1072#1074#1083#1077#1085#1086' '#1074' '#1054#1040#1057#1059#1055
     end
     object dbtxtSendDate: TDBText
-      Left = 659
+      Left = 642
       Top = 112
       Width = 81
       Height = 17
@@ -93,7 +94,7 @@ object NP01VN01Form1: TNP01VN01Form1
       ParentFont = False
     end
     object dbtxtQuart: TDBText
-      Left = 635
+      Left = 618
       Top = 48
       Width = 20
       Height = 17
@@ -108,7 +109,7 @@ object NP01VN01Form1: TNP01VN01Form1
       ParentFont = False
     end
     object lbl6: TLabel
-      Left = 539
+      Left = 522
       Top = 48
       Width = 88
       Height = 13
@@ -116,7 +117,7 @@ object NP01VN01Form1: TNP01VN01Form1
       Caption = #1062#1077#1083#1077#1074#1086#1081' '#1082#1074#1072#1088#1090#1072#1083
     end
     object DBText1: TDBText
-      Left = 608
+      Left = 591
       Top = 7
       Width = 129
       Height = 14
@@ -128,7 +129,7 @@ object NP01VN01Form1: TNP01VN01Form1
     object dbmmoDocTitle: TDBMemo
       Left = 64
       Top = 88
-      Width = 468
+      Width = 451
       Height = 41
       Anchors = [akLeft, akTop, akRight]
       DataField = 'DocTitle'
@@ -146,7 +147,7 @@ object NP01VN01Form1: TNP01VN01Form1
     object dbmmoTable: TDBMemo
       Left = 64
       Top = 40
-      Width = 468
+      Width = 451
       Height = 41
       Anchors = [akLeft, akTop, akRight]
       DataField = 'TableTitle'
@@ -162,7 +163,7 @@ object NP01VN01Form1: TNP01VN01Form1
       OnDblClick = dbmmoTableDblClick
     end
     object btn3: TButton
-      Left = 752
+      Left = 735
       Top = 6
       Width = 17
       Height = 17
@@ -176,7 +177,7 @@ object NP01VN01Form1: TNP01VN01Form1
   object pnl2: TPanel
     Left = 0
     Top = 68
-    Width = 772
+    Width = 755
     Height = 275
     Align = alClient
     BevelOuter = bvNone
@@ -184,7 +185,7 @@ object NP01VN01Form1: TNP01VN01Form1
     object dbgrdh1: TDBGridEh
       Left = 0
       Top = 0
-      Width = 772
+      Width = 755
       Height = 275
       Align = alClient
       AutoFitColWidths = True
@@ -374,7 +375,7 @@ object NP01VN01Form1: TNP01VN01Form1
   object pnl3: TPanel
     Left = 0
     Top = 0
-    Width = 772
+    Width = 755
     Height = 65
     Align = alTop
     BevelOuter = bvLowered
@@ -382,7 +383,7 @@ object NP01VN01Form1: TNP01VN01Form1
     OnCanResize = pnl3CanResize
     OnMouseMove = pnl3MouseMove
     DesignSize = (
-      772
+      755
       65)
     object btnQ1: TSpeedButton
       Left = 64
@@ -427,7 +428,7 @@ object NP01VN01Form1: TNP01VN01Form1
     object bvl2: TBevel
       Left = 8
       Top = 72
-      Width = 756
+      Width = 739
       Height = 98
       Anchors = [akLeft, akTop, akRight]
     end
@@ -453,7 +454,7 @@ object NP01VN01Form1: TNP01VN01Form1
       Caption = #1044#1086#1082#1091#1084#1077#1085#1090
     end
     object lbl10: TLabel
-      Left = 454
+      Left = 437
       Top = 144
       Width = 11
       Height = 13
@@ -461,7 +462,7 @@ object NP01VN01Form1: TNP01VN01Form1
       Caption = #8470
     end
     object lbl11: TLabel
-      Left = 542
+      Left = 525
       Top = 144
       Width = 11
       Height = 13
@@ -537,14 +538,14 @@ object NP01VN01Form1: TNP01VN01Form1
     object lblSearch: TLabel
       Left = 16
       Top = 76
-      Width = 609
+      Width = 592
       Height = 13
       Anchors = [akLeft, akTop, akRight]
       AutoSize = False
       Caption = #1055#1086#1080#1089#1082':'
     end
     object btnFilter: TSpeedButton
-      Left = 635
+      Left = 618
       Top = 4
       Width = 78
       Height = 25
@@ -570,7 +571,7 @@ object NP01VN01Form1: TNP01VN01Form1
       OnMouseMove = btnFilterMouseMove
     end
     object btnFind: TSpeedButton
-      Left = 635
+      Left = 618
       Top = 96
       Width = 97
       Height = 25
@@ -654,7 +655,7 @@ object NP01VN01Form1: TNP01VN01Form1
       OnClick = medtKIClick
     end
     object btnSearch: TBitBtn
-      Left = 635
+      Left = 618
       Top = 32
       Width = 97
       Height = 25
@@ -684,7 +685,7 @@ object NP01VN01Form1: TNP01VN01Form1
     object edtPrimech: TEdit
       Left = 88
       Top = 96
-      Width = 535
+      Width = 518
       Height = 21
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 5
@@ -692,7 +693,7 @@ object NP01VN01Form1: TNP01VN01Form1
     object edtTable: TEdit
       Left = 88
       Top = 120
-      Width = 535
+      Width = 518
       Height = 21
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 6
@@ -700,13 +701,13 @@ object NP01VN01Form1: TNP01VN01Form1
     object edtDoc: TEdit
       Left = 88
       Top = 144
-      Width = 351
+      Width = 334
       Height = 21
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 7
     end
     object btnExport: TBitBtn
-      Left = 739
+      Left = 722
       Top = 32
       Width = 25
       Height = 25
@@ -732,7 +733,7 @@ object NP01VN01Form1: TNP01VN01Form1
       NumGlyphs = 2
     end
     object btn1: TBitBtn
-      Left = 739
+      Left = 722
       Top = 4
       Width = 25
       Height = 24
@@ -758,7 +759,7 @@ object NP01VN01Form1: TNP01VN01Form1
       NumGlyphs = 2
     end
     object medtDocNumb: TMaskEdit
-      Left = 470
+      Left = 453
       Top = 144
       Width = 63
       Height = 21
@@ -770,7 +771,7 @@ object NP01VN01Form1: TNP01VN01Form1
       OnChange = medtDocNumbChange
     end
     object medtDocDate: TMaskEdit
-      Left = 560
+      Left = 543
       Top = 144
       Width = 63
       Height = 21
@@ -860,7 +861,7 @@ object NP01VN01Form1: TNP01VN01Form1
       OnClick = btn5Click
     end
     object btnStructura: TBitBtn
-      Left = 635
+      Left = 618
       Top = 128
       Width = 97
       Height = 25
@@ -886,7 +887,7 @@ object NP01VN01Form1: TNP01VN01Form1
     object txt1: TStaticText
       Left = 292
       Top = 1
-      Width = 341
+      Width = 324
       Height = 24
       Anchors = [akLeft, akTop, akRight]
       AutoSize = False
@@ -914,7 +915,7 @@ object NP01VN01Form1: TNP01VN01Form1
       Text = '   '
     end
     object btn2: TButton
-      Left = 714
+      Left = 697
       Top = 4
       Width = 18
       Height = 25
